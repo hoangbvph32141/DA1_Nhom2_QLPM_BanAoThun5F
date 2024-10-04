@@ -1,12 +1,20 @@
-package com.n2.domainModel;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.n2.viewModel;
 
-public class SanPhamChiTiet {
+/**
+ *
+ * @author vxkie
+ */
+public class SanPhamChiTietViewModel {
     private int ID;
-    private int idMS;
-    private int idCL;
-    private int idTH;
-    private int idKC;
-    private int idSP;
+    private String tenMS;
+    private String tenCL;
+    private String tenTH;
+    private String tenKC;
+    private String tenSP;
     private String maSPCT;
     private String nguoiTao;
     private int soLuongTon;
@@ -14,16 +22,16 @@ public class SanPhamChiTiet {
     private int trangThaiSPCT;
     private float donGia;
 
-    public SanPhamChiTiet() {
+    public SanPhamChiTietViewModel() {
     }
 
-    public SanPhamChiTiet(int ID, int idMS, int idCL, int idTH, int idKC, int idSP, String maSPCT, String nguoiTao, int soLuongTon, String moTa, int trangThaiSPCT, float donGia) {
+    public SanPhamChiTietViewModel(int ID, String tenMS, String tenCL, String tenTH, String tenKC, String tenSP, String maSPCT, String nguoiTao, int soLuongTon, String moTa, int trangThaiSPCT, float donGia) {
         this.ID = ID;
-        this.idMS = idMS;
-        this.idCL = idCL;
-        this.idTH = idTH;
-        this.idKC = idKC;
-        this.idSP = idSP;
+        this.tenMS = tenMS;
+        this.tenCL = tenCL;
+        this.tenTH = tenTH;
+        this.tenKC = tenKC;
+        this.tenSP = tenSP;
         this.maSPCT = maSPCT;
         this.nguoiTao = nguoiTao;
         this.soLuongTon = soLuongTon;
@@ -40,44 +48,44 @@ public class SanPhamChiTiet {
         this.ID = ID;
     }
 
-    public int getIdMS() {
-        return idMS;
+    public String getTenMS() {
+        return tenMS;
     }
 
-    public void setIdMS(int idMS) {
-        this.idMS = idMS;
+    public void setTenMS(String tenMS) {
+        this.tenMS = tenMS;
     }
 
-    public int getIdCL() {
-        return idCL;
+    public String getTenCL() {
+        return tenCL;
     }
 
-    public void setIdCL(int idCL) {
-        this.idCL = idCL;
+    public void setTenCL(String tenCL) {
+        this.tenCL = tenCL;
     }
 
-    public int getIdTH() {
-        return idTH;
+    public String getTenTH() {
+        return tenTH;
     }
 
-    public void setIdTH(int idTH) {
-        this.idTH = idTH;
+    public void setTenTH(String tenTH) {
+        this.tenTH = tenTH;
     }
 
-    public int getIdKC() {
-        return idKC;
+    public String getTenKC() {
+        return tenKC;
     }
 
-    public void setIdKC(int idKC) {
-        this.idKC = idKC;
+    public void setTenKC(String tenKC) {
+        this.tenKC = tenKC;
     }
 
-    public int getIdSP() {
-        return idSP;
+    public String getTenSP() {
+        return tenSP;
     }
 
-    public void setIdSP(int idSP) {
-        this.idSP = idSP;
+    public void setTenSP(String tenSP) {
+        this.tenSP = tenSP;
     }
 
     public String getMaSPCT() {
@@ -127,6 +135,5 @@ public class SanPhamChiTiet {
     public void setDonGia(float donGia) {
         this.donGia = donGia;
     }
-
     
 }

@@ -1,13 +1,20 @@
-package com.n2.domainModel;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.n2.viewModel;
 
 import java.util.Date;
 
-public class HoaDon {
-    
+/**
+ *
+ * @author vxkie
+ */
+public class HoaDonViewModel {
     private int ID;
-    private int IDKH;
-    private int IDNV;
-    private String MaHD;
+    private String tenKH;
+    private String tenNV;
+    private String maHD;
     private Date ngayTao;
     private String lyDoNghi;
     private Date ngayThanhToan;
@@ -15,14 +22,14 @@ public class HoaDon {
     private float tongTien;
     private int trangThai;
 
-    public HoaDon() {
+    public HoaDonViewModel() {
     }
 
-    public HoaDon(int ID, int IDKH, int IDNV, String MaHD, Date ngayTao, String lyDoNghi, Date ngayThanhToan, float donGiaSauGiam, float tongTien, int trangThai) {
+    public HoaDonViewModel(int ID, String tenKH, String tenNV, String maHD, Date ngayTao, String lyDoNghi, Date ngayThanhToan, float donGiaSauGiam, float tongTien, int trangThai) {
         this.ID = ID;
-        this.IDKH = IDKH;
-        this.IDNV = IDNV;
-        this.MaHD = MaHD;
+        this.tenKH = tenKH;
+        this.tenNV = tenNV;
+        this.maHD = maHD;
         this.ngayTao = ngayTao;
         this.lyDoNghi = lyDoNghi;
         this.ngayThanhToan = ngayThanhToan;
@@ -39,28 +46,28 @@ public class HoaDon {
         this.ID = ID;
     }
 
-    public int getIDKH() {
-        return IDKH;
+    public String getTenKH() {
+        return tenKH;
     }
 
-    public void setIDKH(int IDKH) {
-        this.IDKH = IDKH;
+    public void setTenKH(String tenKH) {
+        this.tenKH = tenKH;
     }
 
-    public int getIDNV() {
-        return IDNV;
+    public String getTenNV() {
+        return tenNV;
     }
 
-    public void setIDNV(int IDNV) {
-        this.IDNV = IDNV;
+    public void setTenNV(String tenNV) {
+        this.tenNV = tenNV;
     }
 
     public String getMaHD() {
-        return MaHD;
+        return maHD;
     }
 
-    public void setMaHD(String MaHD) {
-        this.MaHD = MaHD;
+    public void setMaHD(String maHD) {
+        this.maHD = maHD;
     }
 
     public Date getNgayTao() {
@@ -110,6 +117,5 @@ public class HoaDon {
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
     }
-
     
 }
