@@ -80,6 +80,10 @@ public class BanHangService implements iBanHangService {
     public String huyHD(String idHD) {
         return banHangRepository.huyHD(idHD);
     }
+    public String thanhToan(HoaDon hd) {
+        return  banHangRepository.thanhToan(hd);
+    }
+   
     @Override
     public String findByIdKH(String idKH) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

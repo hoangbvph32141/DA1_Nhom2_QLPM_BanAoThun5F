@@ -7,6 +7,7 @@ public class HoaDon {
     private int ID;
     private int IDKH;
     private int IDNV;
+    private int IDKM;
     private String MaHD;
     private Date ngayTao;
     private String lyDoNghi;
@@ -18,10 +19,11 @@ public class HoaDon {
     public HoaDon() {
     }
 
-    public HoaDon(int ID, int IDKH, int IDNV, String MaHD, Date ngayTao, String lyDoNghi, Date ngayThanhToan, float donGiaSauGiam, float tongTien, int trangThai) {
+    public HoaDon(int ID, int IDKH, int IDNV, int IDKM, String MaHD, Date ngayTao, String lyDoNghi, Date ngayThanhToan, float donGiaSauGiam, float tongTien, int trangThai) {
         this.ID = ID;
         this.IDKH = IDKH;
         this.IDNV = IDNV;
+        this.IDKM = IDKM;
         this.MaHD = MaHD;
         this.ngayTao = ngayTao;
         this.lyDoNghi = lyDoNghi;
@@ -53,6 +55,14 @@ public class HoaDon {
 
     public void setIDNV(int IDNV) {
         this.IDNV = IDNV;
+    }
+
+    public int getIDKM() {
+        return IDKM;
+    }
+
+    public void setIDKM(int IDKM) {
+        this.IDKM = IDKM;
     }
 
     public String getMaHD() {
@@ -111,5 +121,4 @@ public class HoaDon {
         this.trangThai = trangThai;
     }
 
-    
 }

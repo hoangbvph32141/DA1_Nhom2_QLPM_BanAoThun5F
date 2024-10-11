@@ -263,23 +263,22 @@ public class BanHangRepository implements iBanHangRepository {
     }
 
     public String updateHoaDonCT(HoaDonChiTiet hdct) {
-    String sql = "update HoaDonCT set SOLUONG  = ? where IDHD = ? and IDSPCT = ?";
-    try (Connection con = JdbcHelper.openDbConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setObject(1, hdct.getSoLuong());
-        ps.setObject(2, hdct.getIdHD());
-        ps.setObject(3, hdct.getIdSPCT());  // Sửa tham số thứ 3 thành vị trí đúng
+        String sql = "update HoaDonCT set SOLUONG  = ? where IDHD = ? and IDSPCT = ?";
+        try (Connection con = JdbcHelper.openDbConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setObject(1, hdct.getSoLuong());
+            ps.setObject(2, hdct.getIdHD());
+            ps.setObject(3, hdct.getIdSPCT());  // Sửa tham số thứ 3 thành vị trí đúng
 
-        if (ps.executeUpdate() > 0) {
-            return "thành công";
+            if (ps.executeUpdate() > 0) {
+                return "thành công";
+            }
+        } catch (Exception e) {
+            System.out.println("lỗi");
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        System.out.println("lỗi");
-        e.printStackTrace();
+
+        return "thất bại";
     }
-
-    return "thất bại";
-}
-
 
     @Override
     public String findByIdKH(String idKH) {
@@ -297,6 +296,26 @@ public class BanHangRepository implements iBanHangRepository {
         try (Connection con = JdbcHelper.openDbConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, idHD);
 
+            if (ps.executeUpdate() > 0) {
+                return "thành công";
+            }
+        } catch (Exception e) {
+            System.out.println("lỗi");
+            e.printStackTrace();
+        }
+
+        return "thất bại";
+    }
+
+    public String thanhToan(HoaDon hd) {
+        
+        String sql = "update HoaDon set TRANGTHAIHD = 1, IDKM = ?,TONGTIEN = ?, NGAYTHANHTOAN = GETDATE(), DONGIASAUGIAM = ? where id = ?";
+        try (Connection con = JdbcHelper.openDbConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setObject(1, hd.getIDKM());
+            ps.setObject(2, hd.getTongTien());
+            ps.setObject(3, hd.getDonGiaSauGiam());
+            ps.setObject(4, hd.getID());
             if (ps.executeUpdate() > 0) {
                 return "thành công";
             }
