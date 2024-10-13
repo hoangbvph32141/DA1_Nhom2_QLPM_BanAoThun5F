@@ -2,6 +2,7 @@ package com.n2.iService;
 
 import com.n2.domainModel.HoaDon;
 import com.n2.domainModel.HoaDonChiTiet;
+import com.n2.domainModel.KhuyenMai;
 import com.n2.domainModel.SanPham;
 import com.n2.domainModel.SanPhamChiTiet;
 import com.n2.iRepository.BanHangRepository;
@@ -83,7 +84,12 @@ public class BanHangService implements iBanHangService {
     public String thanhToan(HoaDon hd) {
         return  banHangRepository.thanhToan(hd);
     }
-   
+     public int getIdKMbyMaKM(String maKM) throws SQLException {
+         return banHangRepository.getIdKMbyMaKM(maKM);
+     }
+     public KhuyenMai getKhuyenMaiByMaKH(String maKM){
+         return banHangRepository.getKhuyenMaiByMaKH(maKM);
+     }
     @Override
     public String findByIdKH(String idKH) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
