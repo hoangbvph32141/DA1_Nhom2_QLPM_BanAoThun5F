@@ -2,6 +2,7 @@ package com.n2.iRepository;
 
 import com.n2.domainModel.HoaDon;
 import com.n2.domainModel.HoaDonChiTiet;
+import com.n2.domainModel.KhuyenMai;
 import com.n2.domainModel.SanPham;
 import com.n2.domainModel.SanPhamChiTiet;
 import com.n2.repository.iBanHangRepository;
@@ -326,6 +327,35 @@ public class BanHangRepository implements iBanHangRepository {
 
         return "thất bại";
     }
+    public int getIdKMbyMaKM(String maKM) throws SQLException {
+        String sql = "select ID from KHUYENMAI where maKM = ?";
+        int idSPCT = 0;
+        ResultSet rs = DBConnection.getDataFromQuery(sql, maKM);
+
+        if (rs.next()) {
+            idSPCT = rs.getInt(1);
+        }
+
+        return idSPCT;
+    }
+    public KhuyenMai getKhuyenMaiByMaKH(String maKM) {
+    KhuyenMai km = null; // Khởi tạo là null
+    String sql = "SELECT TENKM, MUCGIAMGIA FROM KHUYENMAI WHERE MAKM = ?";
+    try {
+        ResultSet rs = DBConnection.getDataFromQuery(sql, maKM);
+        if (rs.next()) { // Kiểm tra xem có kết quả hay không
+            km = new KhuyenMai(); // Khởi tạo đối tượng chỉ khi có dữ liệu
+            km.setTenKM(rs.getString(1));
+            km.setMucGiamGia(rs.getFloat(2));
+        } else {
+            // Xử lý khi không có kết quả (nếu cần)
+            System.out.println("Không tìm thấy khuyến mãi với mã: " + maKM);
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return km; // Trả về null nếu không tìm thấy
+}
 
     @Override
     public List<HoaDonChiTiet> getHDCT(String maHDCT) {

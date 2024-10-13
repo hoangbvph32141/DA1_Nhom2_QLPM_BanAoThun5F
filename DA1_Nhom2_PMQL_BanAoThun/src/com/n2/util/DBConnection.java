@@ -11,7 +11,7 @@ public class DBConnection {
 
     private static String hostName = "localhost";
     private static String acc = "sa";
-    private static String pass = "hieu";
+    private static String pass = "123";
 
     private static String dbName = "DA1_NHOM2"; // note
     private static String connectionSql
