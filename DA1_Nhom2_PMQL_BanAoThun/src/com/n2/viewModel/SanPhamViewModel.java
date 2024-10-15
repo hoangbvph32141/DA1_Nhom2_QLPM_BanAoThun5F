@@ -49,5 +49,8 @@ public class SanPhamViewModel {
         this.trangThaiSP = trangThaiSP;
     }
 
-    
+    public Object[] toDataRow() {
+        return new Object[]{this.ID, this.maSP, this.tenSP, this.trangThaiSP};
+    }
+
 }
