@@ -88,5 +88,6 @@ public class HoaDonChiTietViewModel {
     public void setTenCL(String tenCL) {
         this.tenCL = tenCL;
     }
-
+    
+   
 }

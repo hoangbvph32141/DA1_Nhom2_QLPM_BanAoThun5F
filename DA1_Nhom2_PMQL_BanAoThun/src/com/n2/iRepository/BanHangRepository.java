@@ -125,7 +125,7 @@ public class BanHangRepository implements iBanHangRepository {
     @Override
     public List<HoaDonViewModel> getAllHDD() {
         List<HoaDonViewModel> listHD = new ArrayList<>();
-        String sql = "SELECT        dbo.HOADON.ID,  dbo.HOADON.MAHD,   dbo.NHANVIEN.TENNV, dbo.HOADON.NGAYTAO,  dbo.HOADON.TRANGTHAIHD \n"
+        String sql = "SELECT        dbo.HOADON.ID,  dbo.HOADON.MAHD,   dbo.NHANVIEN.TENNV, dbo.HOADON.NGAYTAO,dbo.HOADON.NGAYTHANHTOAN,  dbo.HOADON.TRANGTHAIHD \n"
                 + "FROM            dbo.HOADON INNER JOIN\n"
                 + "                         dbo.NHANVIEN ON dbo.HOADON.IDNV = dbo.NHANVIEN.ID\n"
                 + "						 where TRANGTHAIHD = 0"
@@ -138,7 +138,8 @@ public class BanHangRepository implements iBanHangRepository {
                 hd.setMaHD(rs.getString(2));
                 hd.setTenNV(rs.getString(3));
                 hd.setNgayTao(rs.getDate(4));
-                hd.setTrangThai(rs.getInt(5));
+                hd.setNgayThanhToan(rs.getDate(5));
+                hd.setTrangThai(rs.getInt(6));
                 listHD.add(hd);
             }
         } catch (Exception e) {
@@ -310,13 +311,14 @@ public class BanHangRepository implements iBanHangRepository {
 
     public String thanhToan(HoaDon hd) {
         
-        String sql = "update HoaDon set TRANGTHAIHD = 1, IDKM = ?,TONGTIEN = ?, NGAYTHANHTOAN = GETDATE(), DONGIASAUGIAM = ? where id = ?";
+        String sql = "update HoaDon set TRANGTHAIHD = 1, IDKM = ?,TONGTIEN = ?, NGAYTHANHTOAN = ?, DONGIASAUGIAM = ? where id = ?";
         try (Connection con = JdbcHelper.openDbConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setObject(1, hd.getIDKM());
             ps.setObject(2, hd.getTongTien());
-            ps.setObject(3, hd.getDonGiaSauGiam());
-            ps.setObject(4, hd.getID());
+            ps.setObject(3, hd.getNgayThanhToan());
+            ps.setObject(4, hd.getDonGiaSauGiam());
+            ps.setObject(5, hd.getID());
             if (ps.executeUpdate() > 0) {
                 return "thành công";
             }

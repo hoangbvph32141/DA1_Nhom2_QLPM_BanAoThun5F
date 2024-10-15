@@ -117,5 +117,14 @@ public class HoaDonViewModel {
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
     }
-    
+     public String tt(int tt){
+        if(tt==0){
+            return "Chưa thanh toan";
+        } else if(tt==1){
+            return "Đã thanh toán";
+        } else {
+            return "Hóa đơn đã hủy";
+        }
+        
+    }
 }
