@@ -6,9 +6,12 @@
             <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/viewModel/HoaDonViewModel.java</file>
             <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iRepository/BanHangRepository.java</file>
             <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iRepository/NhanVienRepository.java</file>
+            <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iRepository/SanPhamRepository.java</file>
+            <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/viewModel/SanPhamViewModel.java</file>
+            <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iService/SanPhamService.java</file>
             <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/viewModel/HoaDonChiTietViewModel.java</file>
             <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/form/BanHangJP.java</file>
-            <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/form/SanPhamJP.java</file>
+            <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/viewModel/SanPhamChiTietViewModel.java</file>
         </group>
     </open-files>
 </project-private>

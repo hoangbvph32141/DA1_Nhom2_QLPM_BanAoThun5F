@@ -135,5 +135,12 @@ public class SanPhamChiTietViewModel {
     public void setDonGia(float donGia) {
         this.donGia = donGia;
     }
-    
+    public String trangThai(int trangThai) {
+        if (trangThai == 1) {
+            return "Còn Hàng";
+        } else {
+            return "Hết Hàng";
+        }
+        
+    } 
 }

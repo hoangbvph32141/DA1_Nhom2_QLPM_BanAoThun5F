@@ -71,7 +71,7 @@ public class BanHangJP extends javax.swing.JPanel {
         int index = 1;
         for (SanPhamChiTietViewModel x : list) {
             model.addRow(new Object[]{
-                index, x.getMaSPCT(), x.getTenSP(), x.getSoLuongTon(), x.getDonGia(), x.getTenKC(), x.getTenCL(), x.getTenMS(), x.getTrangThaiSPCT()
+                index, x.getMaSPCT(), x.getTenSP(), x.getSoLuongTon(), x.getDonGia(), x.getTenKC(), x.getTenCL(), x.getTenMS(), x.trangThai(x.getTrangThaiSPCT())
             });
             index++;
         }
@@ -416,6 +416,7 @@ String formattedDate = sdf.format(now);
     lblTongTien.setText("?");
     lblTienThua.setText("?");
     lblTongTienSau.setText("?");
+    lblMaHD.setText("?");
 }
 
 
