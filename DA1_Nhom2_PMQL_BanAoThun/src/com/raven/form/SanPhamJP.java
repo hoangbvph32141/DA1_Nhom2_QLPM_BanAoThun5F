@@ -7,8 +7,12 @@ package com.raven.form;
 
 import com.n2.iService.BanHangService;
 import com.n2.iService.SanPhamService;
+import com.n2.viewModel.ChatLieuViewModel;
+import com.n2.viewModel.KichCoViewModel;
+import com.n2.viewModel.MauSacViewModel;
 import com.n2.viewModel.SanPhamChiTietViewModel;
 import com.n2.viewModel.SanPhamViewModel;
+import com.n2.viewModel.ThuongHieuViewModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -29,7 +33,11 @@ public class SanPhamJP extends javax.swing.JPanel {
     public SanPhamJP() {
         initComponents();
         loadSP();
-        this.fillTableSP(sm.getAll());
+        this.fillTableSP(sm.getAllSP());
+        //this.fillTableMS(sm.getAllMS());
+        //this.fillTableCL(sm.getAllCL());
+        //this.fillTableTH(sm.getAllTH());
+        this.fillTableKC(sm.getAllKC());
     }
 
     // load danh sách sản phẩm
@@ -51,6 +59,42 @@ public class SanPhamJP extends javax.swing.JPanel {
         model = (DefaultTableModel) tblSP.getModel();
         model.setRowCount(0); // xoá dl cũ trong bảng
         for (SanPhamViewModel x : list) {
+            model.addRow(x.toDataRow());
+        }
+    }
+
+    // load bảng Thuộc Tính MS
+    public void fillTableMS(ArrayList<MauSacViewModel> list) {
+        model = (DefaultTableModel) tblThuocTinh.getModel();
+        model.setRowCount(0); // xoá dl cũ trong bảng
+        for (MauSacViewModel x : list) {
+            model.addRow(x.toDataRow());
+        }
+    }
+
+    // load bảng Thuộc Tính CL
+    public void fillTableCL(ArrayList<ChatLieuViewModel> list) {
+        model = (DefaultTableModel) tblThuocTinh.getModel();
+        model.setRowCount(0); // xoá dl cũ trong bảng
+        for (ChatLieuViewModel x : list) {
+            model.addRow(x.toDataRow());
+        }
+    }
+
+    // load bảng Thuộc Tính TH
+    public void fillTableTH(ArrayList<ThuongHieuViewModel> list) {
+        model = (DefaultTableModel) tblThuocTinh.getModel();
+        model.setRowCount(0); // xoá dl cũ trong bảng
+        for (ThuongHieuViewModel x : list) {
+            model.addRow(x.toDataRow());
+        }
+    }
+
+    // load bảng Thuộc Tính KC
+    public void fillTableKC(ArrayList<KichCoViewModel> list) {
+        model = (DefaultTableModel) tblThuocTinh.getModel();
+        model.setRowCount(0); // xoá dl cũ trong bảng
+        for (KichCoViewModel x : list) {
             model.addRow(x.toDataRow());
         }
     }
@@ -607,7 +651,7 @@ public class SanPhamJP extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Mã Thuộc Tính", "Tên Thuộc Tính", "Trạng Thái"
             }
         ));
         jScrollPane3.setViewportView(tblThuocTinh);
