@@ -83,6 +83,60 @@ public class SanPhamService implements iSanPhamService {
         }
     }
 
+    //
+    // Select bảng Sản Phẩm Chi Tiết
+    public ArrayList<SanPhamChiTietViewModel> getAllSPCTB2() {
+        sql = "SELECT \n"
+                + "    dbo.SANPHAMCHITIET.ID, \n"
+                + "    dbo.CHATLIEU.TENCL, \n"
+                + "    dbo.KICHCO.TENKC, \n"
+                + "    dbo.THUONGHIEU.TENTH, \n"
+                + "    dbo.MAUSAC.TENMS, \n"
+                + "    dbo.SANPHAMCHITIET.SOLUONGTON, \n"
+                + "    dbo.SANPHAMCHITIET.DONGIA, \n"
+                + "    dbo.SANPHAM.TENSP, \n"
+                + "    dbo.SANPHAMCHITIET.TRANGTHAISPCT,\n"
+                + "    dbo.SANPHAMCHITIET.MASPCT\n"
+                + "FROM \n"
+                + "    dbo.SANPHAMCHITIET \n"
+                + "INNER JOIN \n"
+                + "    dbo.KICHCO ON dbo.SANPHAMCHITIET.IDKC = dbo.KICHCO.ID \n"
+                + "INNER JOIN \n"
+                + "    dbo.MAUSAC ON dbo.SANPHAMCHITIET.IDMS = dbo.MAUSAC.ID \n"
+                + "INNER JOIN \n"
+                + "    dbo.SANPHAM ON dbo.SANPHAMCHITIET.IDSP = dbo.SANPHAM.ID \n"
+                + "INNER JOIN \n"
+                + "    dbo.CHATLIEU ON dbo.SANPHAMCHITIET.IDCL = dbo.CHATLIEU.ID \n"
+                + "INNER JOIN \n"
+                + "    dbo.THUONGHIEU ON dbo.SANPHAMCHITIET.IDTH = dbo.THUONGHIEU.ID;";
+
+        ArrayList list_SPCT = new ArrayList<>();
+        try {
+            con = DBConnect.getConnection();
+            pr = con.prepareStatement(sql);
+            rs = pr.executeQuery();
+            while (rs.next()) {
+                SanPhamChiTietViewModel spct = new SanPhamChiTietViewModel();
+                spct.setID(rs.getInt(1));
+                spct.setTenCL(rs.getString(2));
+                spct.setTenKC(rs.getString(3));
+                spct.setTenTH(rs.getString(4));
+                spct.setTenMS(rs.getString(5));
+                spct.setSoLuongTon(rs.getInt(6));
+                spct.setDonGia(rs.getFloat(7));
+                spct.setTenSP(rs.getString(8));
+                spct.setTrangThaiSPCT(rs.getInt(9));
+                spct.setMaSPCT(rs.getString(10));
+                list_SPCT.add(spct);
+            }
+            return list_SPCT;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     // Select bảng Thuộc Tính Màu Sắc
     public ArrayList<MauSacViewModel> getAllMS() {
         sql = "SELECT ID,MAMS,TENMS,TRANGTHAIMS FROM MAUSAC";
