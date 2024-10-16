@@ -202,6 +202,11 @@ public class SanPhamJP extends javax.swing.JPanel {
                 "STT", "Mã sản phẩm", "Tên sản phẩm", "SL còn lại", "Giá", "Kích cỡ", "Chất liệu", "Màu sắc", "Trạng thái"
             }
         ));
+        tblSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSanPhamMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblSanPham);
         if (tblSanPham.getColumnModel().getColumnCount() > 0) {
             tblSanPham.getColumnModel().getColumn(0).setResizable(false);
@@ -333,6 +338,11 @@ public class SanPhamJP extends javax.swing.JPanel {
                 "ID", "Mã Sản Phẩm", "Tên Sản Phẩm", "Trạng Thái"
             }
         ));
+        tblSP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSPMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblSP);
         if (tblSP.getColumnModel().getColumnCount() > 0) {
             tblSP.getColumnModel().getColumn(0).setPreferredWidth(5);
@@ -711,6 +721,29 @@ public class SanPhamJP extends javax.swing.JPanel {
     private void rboKichCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rboKichCoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rboKichCoActionPerformed
+
+    private void tblSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSPMouseClicked
+        // TODO add your handling code here:
+        int row = this.tblSP.getSelectedRow();
+        if (row == -1) {
+            return;
+        }
+
+        SanPhamViewModel m = this.sm.getAllSP().get(row);
+        this.txtMaSP.setText(m.getMaSP());
+        this.txtTenSP.setText(m.getTenSP());
+        int nam = this.cboTrangThaiSP.getSelectedIndex();
+        if (nam == 1) {
+            this.cboTrangThaiSP.setSelectedIndex(1);
+        } else {
+            this.cboTrangThaiSP.setSelectedIndex(2);
+        }
+    }//GEN-LAST:event_tblSPMouseClicked
+
+    private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_tblSanPhamMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

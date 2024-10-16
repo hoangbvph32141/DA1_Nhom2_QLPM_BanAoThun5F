@@ -7,6 +7,7 @@ import com.n2.util.DBConnect;
 import com.n2.viewModel.ChatLieuViewModel;
 import com.n2.viewModel.KichCoViewModel;
 import com.n2.viewModel.MauSacViewModel;
+import com.n2.viewModel.SanPhamChiTietViewModel;
 import com.n2.viewModel.SanPhamViewModel;
 import com.n2.viewModel.ThuongHieuViewModel;
 import java.sql.Connection;
@@ -41,6 +42,31 @@ public class SanPhamService implements iSanPhamService {
                 String tenSP = rs.getString(3);
                 int trangThaiSP = rs.getInt(4);
                 SanPhamViewModel ml = new SanPhamViewModel(iD, maSP, tenSP, trangThaiSP);
+                list_SP.add(ml);
+            }
+            return list_SP;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // Select bảng DS Sản Phẩm
+    public ArrayList<SanPhamChiTietViewModel> getAllSPCT() {
+        sql = "SELECT ID,MASP,TENSP,TRANGTHAISP FROM SANPHAM";
+
+        ArrayList list_SP = new ArrayList<>();
+        try {
+            con = DBConnect.getConnection();
+            pr = con.prepareStatement(sql);
+            rs = pr.executeQuery();
+            while (rs.next()) {
+                int iD = rs.getInt(1);
+                String maSP = rs.getString(2);
+                String tenSP = rs.getString(3);
+                int trangThaiSP = rs.getInt(4);
+                SanPhamChiTietViewModel ml = new SanPhamChiTietViewModel();
                 list_SP.add(ml);
             }
             return list_SP;
