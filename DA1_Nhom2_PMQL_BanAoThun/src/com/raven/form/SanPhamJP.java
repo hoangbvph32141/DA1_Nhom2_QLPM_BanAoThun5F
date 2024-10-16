@@ -51,7 +51,7 @@ public class SanPhamJP extends javax.swing.JPanel {
     // load danh sách sản phẩm
     public void loadSPCT() {
         List<SanPhamChiTietViewModel> list = banHangService.getAllSPCT();
-        model = (DefaultTableModel) jTable1.getModel();
+        model = (DefaultTableModel) tblSPCT.getModel();
         model.setRowCount(0);
         int index = 1;
         for (SanPhamChiTietViewModel x : list) {
@@ -168,7 +168,7 @@ public class SanPhamJP extends javax.swing.JPanel {
         cboTrangThaiSPCT = new javax.swing.JComboBox<>();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblSPCT = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -464,7 +464,7 @@ public class SanPhamJP extends javax.swing.JPanel {
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Chi Tiết Sản Phẩm"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblSPCT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
@@ -475,7 +475,12 @@ public class SanPhamJP extends javax.swing.JPanel {
                 "STT", "Mã Sản Phẩm", "Tên Sản Phẩm", "Số Lượng Còn", "Giá", "Kích Cỡ", "Chất Liệu", "Màu Sắc", "Trạng Thái"
             }
         ));
-        jScrollPane5.setViewportView(jTable1);
+        tblSPCT.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSPCTMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(tblSPCT);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -745,6 +750,30 @@ public class SanPhamJP extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSuaSPActionPerformed
 
+    private void tblSPCTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSPCTMouseClicked
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        int row = this.tblSPCT.getSelectedRow();
+        if (row == -1) {
+            return;
+        }
+
+        SanPhamChiTietViewModel m = this.sm.getAllSPCTB2().get(row);
+        this.txtMaSPCT.setText(m.getMaSPCT());
+        this.txtNguoiTao.setText(m.getNguoiTao());
+        //this.txtSoLuongSPCT.setText(m.getSoLuongTon());
+        //this.txtDonGiaSPCT.setText(m.getDonGia());
+        this.cboKichCo.setSelectedItem(m.getTenKC());
+        this.cboChatLieu.setSelectedItem(m.getTenCL());
+        this.cboMauSac.setSelectedItem(m.getTenMS());
+        int nam = this.cboTrangThaiSPCT.getSelectedIndex();
+        if (nam == 1) {
+            this.cboTrangThaiSP.setSelectedIndex(1);
+        } else {
+            this.cboTrangThaiSP.setSelectedIndex(2);
+        }
+    }//GEN-LAST:event_tblSPCTMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnResetSPCT;
@@ -795,12 +824,12 @@ public class SanPhamJP extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JRadioButton rboChatLieu;
     private javax.swing.JRadioButton rboKichCo;
     private javax.swing.JRadioButton rboMauSac;
     private javax.swing.JRadioButton rboThuongHieu;
     private javax.swing.JTable tblSP;
+    private javax.swing.JTable tblSPCT;
     private javax.swing.JTable tblThuocTinh;
     private javax.swing.JTextField txtDonGiaSPCT;
     private javax.swing.JTextField txtMaSP;
