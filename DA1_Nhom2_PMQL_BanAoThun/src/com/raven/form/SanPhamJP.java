@@ -300,6 +300,11 @@ public class SanPhamJP extends javax.swing.JPanel {
         });
 
         btnSuaSP.setText("Sửa");
+        btnSuaSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaSPActionPerformed(evt);
+            }
+        });
 
         btnXoaSP.setText("Xoá");
 
@@ -781,6 +786,22 @@ public class SanPhamJP extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "them that bai");
         }
     }//GEN-LAST:event_btnThemSPActionPerformed
+
+    private void btnSuaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaSPActionPerformed
+        // TODO add your handling code here:
+        // b1: chọn dòng cần sửas
+        int i = tblSP.getSelectedRow();
+        // b2: đọc dl đã sửa từ form
+        if (this.readFormSP() != null) {
+            int id = Integer.parseInt(tblSP.getValueAt(i, 0).toString());
+            if (sm.suaSP(id, this.readFormSP()) > 0) {
+                JOptionPane.showMessageDialog(this, "Sửa Thành Công");
+                this.fillTableSP(sm.getAllSP());
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa thất bại");
+            }
+        }
+    }//GEN-LAST:event_btnSuaSPActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

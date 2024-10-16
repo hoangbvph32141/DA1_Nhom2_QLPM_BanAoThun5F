@@ -68,6 +68,21 @@ public class SanPhamService implements iSanPhamService {
         }
     }
 
+    public int suaSP(int id, SanPhamViewModel m) {
+        sql = "update SANPHAM set MASP=?,TENSP=?,TRANGTHAISP=? where id=?";
+
+        try {
+            pr = con.prepareStatement(sql);
+            pr.setObject(1, m.getMaSP());
+            pr.setObject(2, m.getTenSP());
+            pr.setObject(3, m.getTrangThaiSP());
+            pr.setObject(4, id);
+            return pr.executeUpdate();
+        } catch (Exception e) { // không sửa được
+            return 0;
+        }
+    }
+
     // Select bảng Thuộc Tính Màu Sắc
     public ArrayList<MauSacViewModel> getAllMS() {
         sql = "SELECT ID,MAMS,TENMS,TRANGTHAIMS FROM MAUSAC";
