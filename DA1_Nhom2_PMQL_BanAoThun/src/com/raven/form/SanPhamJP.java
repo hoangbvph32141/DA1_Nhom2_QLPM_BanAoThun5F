@@ -7,10 +7,15 @@ package com.raven.form;
 
 import com.n2.iService.BanHangService;
 import com.n2.iService.SanPhamService;
+import com.n2.viewModel.ChatLieuViewModel;
+import com.n2.viewModel.KichCoViewModel;
+import com.n2.viewModel.MauSacViewModel;
 import com.n2.viewModel.SanPhamChiTietViewModel;
 import com.n2.viewModel.SanPhamViewModel;
+import com.n2.viewModel.ThuongHieuViewModel;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,7 +34,18 @@ public class SanPhamJP extends javax.swing.JPanel {
     public SanPhamJP() {
         initComponents();
         loadSP();
-        this.fillTableSP(sm.getAll());
+        this.fillTableSP(sm.getAllSP());
+        //this.fillTableMS(sm.getAllMS());
+        //this.fillTableCL(sm.getAllCL());
+        //this.fillTableTH(sm.getAllTH());
+        this.fillTableKC(sm.getAllKC());
+
+        // Trạng thái SP
+        cboTrangThaiSP.removeAllItems();
+        for (int i = 1; i <= 2; i++) {
+            cboTrangThaiSP.addItem(String.valueOf(i));
+        }
+
     }
 
     // load danh sách sản phẩm
@@ -40,7 +56,7 @@ public class SanPhamJP extends javax.swing.JPanel {
         int index = 1;
         for (SanPhamChiTietViewModel x : list) {
             model.addRow(new Object[]{
-                index, x.getMaSPCT(), x.getTenSP(), x.getSoLuongTon(), x.getDonGia(), x.getTenKC(), x.getTenCL(), x.getTenMS(), x.getTrangThaiSPCT()
+                index, x.getMaSPCT(), x.getTenSP(), x.getSoLuongTon(), x.getDonGia(), x.getTenKC(), x.getTenCL(), x.getTenMS(), x.trangThai(x.getTrangThaiSPCT())
             });
             index++;
         }
@@ -51,6 +67,50 @@ public class SanPhamJP extends javax.swing.JPanel {
         model = (DefaultTableModel) tblSP.getModel();
         model.setRowCount(0); // xoá dl cũ trong bảng
         for (SanPhamViewModel x : list) {
+            model.addRow(x.toDataRow());
+        }
+    }
+
+    // readForm Sản Phẩm
+    SanPhamViewModel readFormSP() {
+        String maSP = txtMaSP.getText().trim();
+        String tenSP = txtTenSP.getText().trim();
+        int trangThaiSP = Integer.parseInt(cboTrangThaiSP.getSelectedItem().toString());
+        return new SanPhamViewModel(maSP, tenSP, trangThaiSP);
+    }
+
+// load bảng Thuộc Tính MS
+    public void fillTableMS(ArrayList<MauSacViewModel> list) {
+        model = (DefaultTableModel) tblThuocTinh.getModel();
+        model.setRowCount(0); // xoá dl cũ trong bảng
+        for (MauSacViewModel x : list) {
+            model.addRow(x.toDataRow());
+        }
+    }
+
+    // load bảng Thuộc Tính CL
+    public void fillTableCL(ArrayList<ChatLieuViewModel> list) {
+        model = (DefaultTableModel) tblThuocTinh.getModel();
+        model.setRowCount(0); // xoá dl cũ trong bảng
+        for (ChatLieuViewModel x : list) {
+            model.addRow(x.toDataRow());
+        }
+    }
+
+    // load bảng Thuộc Tính TH
+    public void fillTableTH(ArrayList<ThuongHieuViewModel> list) {
+        model = (DefaultTableModel) tblThuocTinh.getModel();
+        model.setRowCount(0); // xoá dl cũ trong bảng
+        for (ThuongHieuViewModel x : list) {
+            model.addRow(x.toDataRow());
+        }
+    }
+
+    // load bảng Thuộc Tính KC
+    public void fillTableKC(ArrayList<KichCoViewModel> list) {
+        model = (DefaultTableModel) tblThuocTinh.getModel();
+        model.setRowCount(0); // xoá dl cũ trong bảng
+        for (KichCoViewModel x : list) {
             model.addRow(x.toDataRow());
         }
     }
@@ -158,29 +218,35 @@ public class SanPhamJP extends javax.swing.JPanel {
                 "STT", "Mã sản phẩm", "Tên sản phẩm", "SL còn lại", "Giá", "Kích cỡ", "Chất liệu", "Màu sắc", "Trạng thái"
             }
         ));
+        tblSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSanPhamMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblSanPham);
         if (tblSanPham.getColumnModel().getColumnCount() > 0) {
             tblSanPham.getColumnModel().getColumn(0).setResizable(false);
-            tblSanPham.getColumnModel().getColumn(0).setPreferredWidth(15);
+            tblSanPham.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tblSanPham.getColumnModel().getColumn(1).setResizable(false);
+            tblSanPham.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tblSanPham.getColumnModel().getColumn(2).setResizable(false);
+            tblSanPham.getColumnModel().getColumn(2).setPreferredWidth(250);
+            tblSanPham.getColumnModel().getColumn(3).setResizable(false);
+            tblSanPham.getColumnModel().getColumn(3).setPreferredWidth(100);
             tblSanPham.getColumnModel().getColumn(5).setResizable(false);
-            tblSanPham.getColumnModel().getColumn(5).setPreferredWidth(25);
+            tblSanPham.getColumnModel().getColumn(5).setPreferredWidth(50);
+            tblSanPham.getColumnModel().getColumn(8).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 818, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -227,8 +293,18 @@ public class SanPhamJP extends javax.swing.JPanel {
         cboTrangThaiSP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Còn Hàng", "Hết Hàng" }));
 
         btnThemSP.setText("Thêm");
+        btnThemSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemSPActionPerformed(evt);
+            }
+        });
 
         btnSuaSP.setText("Sửa");
+        btnSuaSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaSPActionPerformed(evt);
+            }
+        });
 
         btnXoaSP.setText("Xoá");
 
@@ -288,6 +364,11 @@ public class SanPhamJP extends javax.swing.JPanel {
                 "ID", "Mã Sản Phẩm", "Tên Sản Phẩm", "Trạng Thái"
             }
         ));
+        tblSP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSPMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblSP);
         if (tblSP.getColumnModel().getColumnCount() > 0) {
             tblSP.getColumnModel().getColumn(0).setPreferredWidth(5);
@@ -606,7 +687,7 @@ public class SanPhamJP extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Mã Thuộc Tính", "Tên Thuộc Tính", "Trạng Thái"
             }
         ));
         jScrollPane3.setViewportView(tblThuocTinh);
@@ -666,6 +747,61 @@ public class SanPhamJP extends javax.swing.JPanel {
     private void rboKichCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rboKichCoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rboKichCoActionPerformed
+
+    private void tblSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSPMouseClicked
+        // TODO add your handling code here:
+        int row = this.tblSP.getSelectedRow();
+        if (row == -1) {
+            return;
+        }
+
+        SanPhamViewModel m = this.sm.getAllSP().get(row);
+        this.txtMaSP.setText(m.getMaSP());
+        this.txtTenSP.setText(m.getTenSP());
+        int nam = this.cboTrangThaiSP.getSelectedIndex();
+        if (nam == 1) {
+            this.cboTrangThaiSP.setSelectedIndex(1);
+        } else {
+            this.cboTrangThaiSP.setSelectedIndex(2);
+        }
+    }//GEN-LAST:event_tblSPMouseClicked
+
+    private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_tblSanPhamMouseClicked
+
+    private void btnThemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSPActionPerformed
+        // TODO add your handling code here:
+        if (this.readFormSP() != null) {
+            int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không ?");
+            if (chon == 0) {
+                sm.themSP(this.readFormSP());
+                this.fillTableSP(sm.getAllSP());
+                JOptionPane.showMessageDialog(this, "them thanh cong");
+            } else {
+                JOptionPane.showMessageDialog(this, "ban khong chon them");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "them that bai");
+        }
+    }//GEN-LAST:event_btnThemSPActionPerformed
+
+    private void btnSuaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaSPActionPerformed
+        // TODO add your handling code here:
+        // b1: chọn dòng cần sửas
+        int i = tblSP.getSelectedRow();
+        // b2: đọc dl đã sửa từ form
+        if (this.readFormSP() != null) {
+            int id = Integer.parseInt(tblSP.getValueAt(i, 0).toString());
+            if (sm.suaSP(id, this.readFormSP()) > 0) {
+                JOptionPane.showMessageDialog(this, "Sửa Thành Công");
+                this.fillTableSP(sm.getAllSP());
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa thất bại");
+            }
+        }
+    }//GEN-LAST:event_btnSuaSPActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
