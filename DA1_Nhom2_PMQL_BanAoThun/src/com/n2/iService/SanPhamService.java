@@ -52,28 +52,19 @@ public class SanPhamService implements iSanPhamService {
         }
     }
 
-    // Select bảng DS Sản Phẩm
-    public ArrayList<SanPhamChiTietViewModel> getAllSPCT() {
-        sql = "SELECT ID,MASP,TENSP,TRANGTHAISP FROM SANPHAM";
-
-        ArrayList list_SP = new ArrayList<>();
+    public int themSP(SanPhamViewModel m) {
+        sql = "insert into SANPHAM(MASP,TENSP,TRANGTHAISP) values(?,?,?)";
         try {
             con = DBConnect.getConnection();
             pr = con.prepareStatement(sql);
-            rs = pr.executeQuery();
-            while (rs.next()) {
-                int iD = rs.getInt(1);
-                String maSP = rs.getString(2);
-                String tenSP = rs.getString(3);
-                int trangThaiSP = rs.getInt(4);
-                SanPhamChiTietViewModel ml = new SanPhamChiTietViewModel();
-                list_SP.add(ml);
-            }
-            return list_SP;
-
+            pr.setObject(1, m.getMaSP());
+            pr.setObject(2, m.getTenSP());
+            pr.setObject(3, m.getTrangThaiSP());
+            return pr.executeUpdate(); // thêm sửa xoá
         } catch (Exception e) {
+            // thêm thất bại
             e.printStackTrace();
-            return null;
+            return 0;
         }
     }
 

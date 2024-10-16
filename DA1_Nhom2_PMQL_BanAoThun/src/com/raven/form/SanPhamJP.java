@@ -15,6 +15,7 @@ import com.n2.viewModel.SanPhamViewModel;
 import com.n2.viewModel.ThuongHieuViewModel;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -38,6 +39,13 @@ public class SanPhamJP extends javax.swing.JPanel {
         //this.fillTableCL(sm.getAllCL());
         //this.fillTableTH(sm.getAllTH());
         this.fillTableKC(sm.getAllKC());
+
+        // Trạng thái SP
+        cboTrangThaiSP.removeAllItems();
+        for (int i = 1; i <= 2; i++) {
+            cboTrangThaiSP.addItem(String.valueOf(i));
+        }
+
     }
 
     // load danh sách sản phẩm
@@ -63,7 +71,15 @@ public class SanPhamJP extends javax.swing.JPanel {
         }
     }
 
-    // load bảng Thuộc Tính MS
+    // readForm Sản Phẩm
+    SanPhamViewModel readFormSP() {
+        String maSP = txtMaSP.getText().trim();
+        String tenSP = txtTenSP.getText().trim();
+        int trangThaiSP = Integer.parseInt(cboTrangThaiSP.getSelectedItem().toString());
+        return new SanPhamViewModel(maSP, tenSP, trangThaiSP);
+    }
+
+// load bảng Thuộc Tính MS
     public void fillTableMS(ArrayList<MauSacViewModel> list) {
         model = (DefaultTableModel) tblThuocTinh.getModel();
         model.setRowCount(0); // xoá dl cũ trong bảng
@@ -277,6 +293,11 @@ public class SanPhamJP extends javax.swing.JPanel {
         cboTrangThaiSP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Còn Hàng", "Hết Hàng" }));
 
         btnThemSP.setText("Thêm");
+        btnThemSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemSPActionPerformed(evt);
+            }
+        });
 
         btnSuaSP.setText("Sửa");
 
@@ -744,6 +765,22 @@ public class SanPhamJP extends javax.swing.JPanel {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_tblSanPhamMouseClicked
+
+    private void btnThemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSPActionPerformed
+        // TODO add your handling code here:
+        if (this.readFormSP() != null) {
+            int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không ?");
+            if (chon == 0) {
+                sm.themSP(this.readFormSP());
+                this.fillTableSP(sm.getAllSP());
+                JOptionPane.showMessageDialog(this, "them thanh cong");
+            } else {
+                JOptionPane.showMessageDialog(this, "ban khong chon them");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "them that bai");
+        }
+    }//GEN-LAST:event_btnThemSPActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
