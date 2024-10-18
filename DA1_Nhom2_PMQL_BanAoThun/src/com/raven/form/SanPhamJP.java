@@ -619,6 +619,11 @@ public class SanPhamJP extends javax.swing.JPanel {
         });
 
         btnResetTT.setText("Reset");
+        btnResetTT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetTTActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1008,6 +1013,12 @@ public class SanPhamJP extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_tblThuocTinhMouseClicked
+
+    private void btnResetTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetTTActionPerformed
+        // TODO add your handling code here:
+        txtMaThuocTinh.setText("");
+        txtTenThuocTinh.setText("");
+    }//GEN-LAST:event_btnResetTTActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
