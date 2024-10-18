@@ -5,6 +5,7 @@
  */
 package com.raven.form;
 
+import com.n2.domainModel.SanPhamChiTiet;
 import com.n2.iService.BanHangService;
 import com.n2.iService.SanPhamService;
 import com.n2.viewModel.ChatLieuViewModel;
@@ -47,6 +48,12 @@ public class SanPhamJP extends javax.swing.JPanel {
         for (int i = 1; i <= 2; i++) {
             cboTrangThaiThuocTinh.addItem(String.valueOf(i));
         }
+
+        // load combobox Màu Sắc
+        loadDataToComboBoxMauSac();
+        loadDataToComboBoxChatLieu();
+        loadDataToComboBoxThuongHieu();
+        loadDataToComboBoxKichCo();
 
     }
 
@@ -147,6 +154,62 @@ public class SanPhamJP extends javax.swing.JPanel {
         String tenthuocTinhKC = txtTenThuocTinh.getText().trim();
         int trangThaiTTKC = Integer.parseInt(cboTrangThaiThuocTinh.getSelectedItem().toString());
         return new KichCoViewModel(mathuocTinhKC, tenthuocTinhKC, trangThaiTTKC);
+    }
+
+    // Đổ dữ liệu màu sắc vào combobox
+    public void loadDataToComboBoxMauSac() {
+        SanPhamService sanPhamService = new SanPhamService(); // Khởi tạo service
+        ArrayList<MauSacViewModel> listMauSac = sanPhamService.getAllMS(); // Lấy danh sách màu sắc
+
+        // Xóa dữ liệu hiện có trong combobox (nếu cần)
+        cboMauSac.removeAllItems();
+
+        // Đổ từng màu sắc vào combobox
+        for (MauSacViewModel ms : listMauSac) {
+            cboMauSac.addItem(ms.getTenMS()); // Hoặc bạn có thể add mã màu thay vì tên
+        }
+    }
+
+    // Đổ dữ liệu chất liệu vào combobox
+    public void loadDataToComboBoxChatLieu() {
+        SanPhamService sanPhamService = new SanPhamService(); // Khởi tạo service
+        ArrayList<ChatLieuViewModel> listChatLieu = sanPhamService.getAllCL(); // Lấy danh sách chất liệu
+
+        // Xóa dữ liệu hiện có trong combobox (nếu cần)
+        cboChatLieu.removeAllItems();
+
+        // Đổ từng chất liệu vào combobox
+        for (ChatLieuViewModel cl : listChatLieu) {
+            cboChatLieu.addItem(cl.getTenCL()); // Hoặc bạn có thể add mã màu thay vì tên
+        }
+    }
+
+    // Đổ dữ liệu Thương Hiệu vào combobox
+    public void loadDataToComboBoxThuongHieu() {
+        SanPhamService sanPhamService = new SanPhamService(); // Khởi tạo service
+        ArrayList<ThuongHieuViewModel> listThuongHieu = sanPhamService.getAllTH(); // Lấy danh sách thương hiệu
+
+        // Xóa dữ liệu hiện có trong combobox (nếu cần)
+        cboThuongHieu.removeAllItems();
+
+        // Đổ từng màu sắc vào combobox
+        for (ThuongHieuViewModel th : listThuongHieu) {
+            cboThuongHieu.addItem(th.getTenTH()); // Hoặc bạn có thể add mã màu thay vì tên
+        }
+    }
+
+    // Đổ dữ liệu Thương Hiệu vào combobox
+    public void loadDataToComboBoxKichCo() {
+        SanPhamService sanPhamService = new SanPhamService(); // Khởi tạo service
+        ArrayList<KichCoViewModel> listKichCo = sanPhamService.getAllKC(); // Lấy danh sách thương hiệu
+
+        // Xóa dữ liệu hiện có trong combobox (nếu cần)
+        cboKichCo.removeAllItems();
+
+        // Đổ từng màu sắc vào combobox
+        for (KichCoViewModel kc : listKichCo) {
+            cboKichCo.addItem(kc.getTenKC()); // Hoặc bạn có thể add mã màu thay vì tên
+        }
     }
 
     /**
@@ -860,6 +923,7 @@ public class SanPhamJP extends javax.swing.JPanel {
                 if (chon == 0) {
                     sm.themTTMS(this.readFormMS());
                     this.fillTableMS(sm.getAllMS());
+                    loadDataToComboBoxMauSac();
                     JOptionPane.showMessageDialog(this, "thêm Màu Sắc thành công");
                 } else {
                     JOptionPane.showMessageDialog(this, "bạn không chọn thêm");
@@ -873,6 +937,7 @@ public class SanPhamJP extends javax.swing.JPanel {
                 if (chon == 0) {
                     sm.themTTCL(this.readFormCL());
                     this.fillTableCL(sm.getAllCL());
+                    loadDataToComboBoxChatLieu();
                     JOptionPane.showMessageDialog(this, "thêm Chất Liệu thành công");
                 } else {
                     JOptionPane.showMessageDialog(this, "bạn không chọn thêm");
@@ -886,6 +951,7 @@ public class SanPhamJP extends javax.swing.JPanel {
                 if (chon == 0) {
                     sm.themTTTH(this.readFormTH());
                     this.fillTableTH(sm.getAllTH());
+                    loadDataToComboBoxThuongHieu();
                     JOptionPane.showMessageDialog(this, "thêm Thương Hiệu thành công");
                 } else {
                     JOptionPane.showMessageDialog(this, "ban không chọn thêm");
@@ -899,6 +965,7 @@ public class SanPhamJP extends javax.swing.JPanel {
                 if (chon == 0) {
                     sm.themTTKC(this.readFormKC());
                     this.fillTableKC(sm.getAllKC());
+                    loadDataToComboBoxKichCo();
                     JOptionPane.showMessageDialog(this, "thêm Kích Cỡ thành công");
                 } else {
                     JOptionPane.showMessageDialog(this, "bạn không chọn thêm");
