@@ -411,6 +411,11 @@ public class SanPhamJP extends javax.swing.JPanel {
         jLabel13.setText("Mô Tả");
 
         btnThemSPCT.setText("Thêm");
+        btnThemSPCT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemSPCTActionPerformed(evt);
+            }
+        });
 
         btnSuaSPCT.setText("Sửa");
 
@@ -872,27 +877,7 @@ public class SanPhamJP extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaSPActionPerformed
 
     private void tblSPCTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSPCTMouseClicked
-        // TODO add your handling code here:
-        // TODO add your handling code here:
-        int row = this.tblSPCT.getSelectedRow();
-        if (row == -1) {
-            return;
-        }
 
-        SanPhamChiTietViewModel m = this.sm.getAllSPCTB2().get(row);
-        this.txtMaSPCT.setText(m.getMaSPCT());
-        this.txtNguoiTao.setText(m.getNguoiTao());
-        //this.txtSoLuongSPCT.setText(m.getSoLuongTon());
-        //this.txtDonGiaSPCT.setText(m.getDonGia());
-        this.cboKichCo.setSelectedItem(m.getTenKC());
-        this.cboChatLieu.setSelectedItem(m.getTenCL());
-        this.cboMauSac.setSelectedItem(m.getTenMS());
-        int nam = this.cboTrangThaiSPCT.getSelectedIndex();
-        if (nam == 1) {
-            this.cboTrangThaiSP.setSelectedIndex(1);
-        } else {
-            this.cboTrangThaiSP.setSelectedIndex(2);
-        }
     }//GEN-LAST:event_tblSPCTMouseClicked
 
     private void rboMauSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rboMauSacActionPerformed
@@ -1086,6 +1071,37 @@ public class SanPhamJP extends javax.swing.JPanel {
         txtMaThuocTinh.setText("");
         txtTenThuocTinh.setText("");
     }//GEN-LAST:event_btnResetTTActionPerformed
+
+    private void btnThemSPCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSPCTActionPerformed
+        // TODO add your handling code here:
+        // Lấy dữ liệu từ form
+        String maSPCT = txtMaSPCT.getText();
+        String nguoiTao = txtNguoiTao.getText();
+        int soLuong = Integer.parseInt(txtSoLuongSPCT.getText());
+        double donGia = Double.parseDouble(txtDonGiaSPCT.getText());
+        String moTa = txtMoTaSPCT.getText();
+
+        // Lấy giá trị từ combobox
+        MauSacViewModel mauSac = (MauSacViewModel) cboMauSac.getSelectedItem();
+        ChatLieuViewModel chatLieu = (ChatLieuViewModel) cboChatLieu.getSelectedItem();
+        ThuongHieuViewModel thuongHieu = (ThuongHieuViewModel) cboThuongHieu.getSelectedItem();
+        KichCoViewModel kichCo = (KichCoViewModel) cboKichCo.getSelectedItem();
+        int trangThai = Integer.parseInt(cboTrangThaiSPCT.getSelectedItem().toString());
+
+        // Tạo đối tượng SanPhamChiTiet
+        SanPhamChiTiet spct = new SanPhamChiTiet();
+
+        // Gọi phương thức service để lưu sản phẩm chi tiết vào database
+        SanPhamService sanPhamService = new SanPhamService();
+        int result = sanPhamService.themSPCT(spct);
+
+        if (result > 0) {
+            JOptionPane.showMessageDialog(this, "Thêm sản phẩm chi tiết thành công!");
+            // Cập nhật lại bảng danh sách sản phẩm chi tiết nếu có
+        } else {
+            JOptionPane.showMessageDialog(this, "Thêm sản phẩm chi tiết thất bại!");
+        }
+    }//GEN-LAST:event_btnThemSPCTActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,6 +1,12 @@
 package com.n2.domainModel;
 
+import com.n2.viewModel.ChatLieuViewModel;
+import com.n2.viewModel.KichCoViewModel;
+import com.n2.viewModel.MauSacViewModel;
+import com.n2.viewModel.ThuongHieuViewModel;
+
 public class SanPhamChiTiet {
+
     private int ID;
     private int idMS;
     private int idCL;
@@ -128,5 +134,4 @@ public class SanPhamChiTiet {
         this.donGia = donGia;
     }
 
-    
 }
