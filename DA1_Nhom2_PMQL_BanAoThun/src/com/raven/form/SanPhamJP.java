@@ -578,6 +578,11 @@ public class SanPhamJP extends javax.swing.JPanel {
         });
 
         btnSuaTT.setText("Sửa");
+        btnSuaTT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaTTActionPerformed(evt);
+            }
+        });
 
         btnXoaTT.setText("Xoá");
 
@@ -691,6 +696,11 @@ public class SanPhamJP extends javax.swing.JPanel {
                 "ID", "Mã Thuộc Tính", "Tên Thuộc Tính", "Trạng Thái"
             }
         ));
+        tblThuocTinh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblThuocTinhMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblThuocTinh);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -780,8 +790,6 @@ public class SanPhamJP extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemSPActionPerformed
 
     private void btnSuaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaSPActionPerformed
-        // TODO add your handling code here:
-        // b1: chọn dòng cần sửas
         int i = tblSP.getSelectedRow();
         // b2: đọc dl đã sửa từ form
         if (this.readFormSP() != null) {
@@ -896,6 +904,110 @@ public class SanPhamJP extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_btnThemTTActionPerformed
+
+    private void btnSuaTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaTTActionPerformed
+        // TODO add your handling code here:
+        int i = tblThuocTinh.getSelectedRow();
+
+        if (rboMauSac.isSelected()) {
+            if (this.readFormMS() != null) {
+                int id = Integer.parseInt(tblThuocTinh.getValueAt(i, 0).toString());
+                if (sm.suaTTMS(id, this.readFormMS()) > 0) {
+                    JOptionPane.showMessageDialog(this, "Sửa Màu Sắc Thành Công");
+                    this.fillTableMS(sm.getAllMS());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sửa Màu Sắc thất bại");
+                }
+            }
+        } else if (rboChatLieu.isSelected()) {
+            if (this.readFormCL() != null) {
+                int id = Integer.parseInt(tblThuocTinh.getValueAt(i, 0).toString());
+                if (sm.suaTTCL(id, this.readFormCL()) > 0) {
+                    JOptionPane.showMessageDialog(this, "Sửa Chất Liệu Thành Công");
+                    this.fillTableCL(sm.getAllCL());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sửa Chất Liệu thất bại");
+                }
+            }
+        } else if (rboThuongHieu.isSelected()) {
+            if (this.readFormTH() != null) {
+                int id = Integer.parseInt(tblThuocTinh.getValueAt(i, 0).toString());
+                if (sm.suaTTTH(id, this.readFormTH()) > 0) {
+                    JOptionPane.showMessageDialog(this, "Sửa Thương Hiệu Thành Công");
+                    this.fillTableTH(sm.getAllTH());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sửa Thương Hiệu thất bại");
+                }
+            }
+        } else if (rboKichCo.isSelected()) {
+            if (this.readFormKC() != null) {
+                int id = Integer.parseInt(tblThuocTinh.getValueAt(i, 0).toString());
+                if (sm.suaTTKC(id, this.readFormKC()) > 0) {
+                    JOptionPane.showMessageDialog(this, "Sửa Kích Cỡ Thành Công");
+                    this.fillTableKC(sm.getAllKC());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sửa Kích Cỡ thất bại");
+                }
+            }
+
+        }
+
+    }//GEN-LAST:event_btnSuaTTActionPerformed
+
+    private void tblThuocTinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblThuocTinhMouseClicked
+
+        int row = this.tblThuocTinh.getSelectedRow();
+        if (row == -1) {
+            return;
+        }
+
+        if (rboMauSac.isSelected()) {
+            MauSacViewModel m = this.sm.getAllMS().get(row);
+            this.txtMaThuocTinh.setText(m.getMaMS());
+            this.txtTenThuocTinh.setText(m.getTenMS());
+            int nam = this.cboTrangThaiThuocTinh.getSelectedIndex();
+            if (nam == 1) {
+                this.cboTrangThaiThuocTinh.setSelectedIndex(1);
+            } else {
+                this.cboTrangThaiThuocTinh.setSelectedIndex(2);
+            }
+
+        } else if (rboChatLieu.isSelected()) {
+            ChatLieuViewModel m = this.sm.getAllCL().get(row);
+            this.txtMaThuocTinh.setText(m.getMaCL());
+            this.txtTenThuocTinh.setText(m.getTenCL());
+            int nam = this.cboTrangThaiThuocTinh.getSelectedIndex();
+            if (nam == 1) {
+                this.cboTrangThaiThuocTinh.setSelectedIndex(1);
+            } else {
+                this.cboTrangThaiThuocTinh.setSelectedIndex(2);
+            }
+
+        } else if (rboThuongHieu.isSelected()) {
+            ThuongHieuViewModel m = this.sm.getAllTH().get(row);
+            this.txtMaThuocTinh.setText(m.getMaTH());
+            this.txtTenThuocTinh.setText(m.getTenTH());
+            int nam = this.cboTrangThaiThuocTinh.getSelectedIndex();
+            if (nam == 1) {
+                this.cboTrangThaiThuocTinh.setSelectedIndex(1);
+            } else {
+                this.cboTrangThaiThuocTinh.setSelectedIndex(2);
+            }
+
+        } else if (rboKichCo.isSelected()) {
+            KichCoViewModel m = this.sm.getAllKC().get(row);
+            this.txtMaThuocTinh.setText(m.getMaKC());
+            this.txtTenThuocTinh.setText(m.getTenKC());
+            int nam = this.cboTrangThaiThuocTinh.getSelectedIndex();
+            if (nam == 1) {
+                this.cboTrangThaiThuocTinh.setSelectedIndex(1);
+            } else {
+                this.cboTrangThaiThuocTinh.setSelectedIndex(2);
+            }
+
+        }
+
+    }//GEN-LAST:event_tblThuocTinhMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

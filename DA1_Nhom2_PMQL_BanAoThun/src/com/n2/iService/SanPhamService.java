@@ -178,6 +178,21 @@ public class SanPhamService implements iSanPhamService {
         }
     }
 
+    public int suaTTMS(int id, MauSacViewModel m) {
+        sql = "update MAUSAC set MAMS=?,TENMS=?,TRANGTHAIMS=? where id=?";
+
+        try {
+            pr = con.prepareStatement(sql);
+            pr.setObject(1, m.getMaMS());
+            pr.setObject(2, m.getTenMS());
+            pr.setObject(3, m.getTrangThaiMS());
+            pr.setObject(4, id);
+            return pr.executeUpdate();
+        } catch (Exception e) { // không sửa được
+            return 0;
+        }
+    }
+
     // Select bảng Thuộc Tính Chất Liệu
     public ArrayList<ChatLieuViewModel> getAllCL() {
         sql = "SELECT ID,MACL,TENCL,TRANGTHAICL FROM CHATLIEU";
@@ -215,6 +230,21 @@ public class SanPhamService implements iSanPhamService {
         } catch (Exception e) {
             // thêm thất bại
             e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int suaTTCL(int id, ChatLieuViewModel m) {
+        sql = "update CHATLIEU set MACL=?,TENCL=?,TRANGTHAICL=? where id=?";
+
+        try {
+            pr = con.prepareStatement(sql);
+            pr.setObject(1, m.getMaCL());
+            pr.setObject(2, m.getTenCL());
+            pr.setObject(3, m.getTrangThaiMS());
+            pr.setObject(4, id);
+            return pr.executeUpdate();
+        } catch (Exception e) { // không sửa được
             return 0;
         }
     }
@@ -260,6 +290,21 @@ public class SanPhamService implements iSanPhamService {
         }
     }
 
+    public int suaTTTH(int id, ThuongHieuViewModel m) {
+        sql = "update THUONGHIEU set MATH=?,TENTH=?,TRANGTHAITH=? where id=?";
+
+        try {
+            pr = con.prepareStatement(sql);
+            pr.setObject(1, m.getMaTH());
+            pr.setObject(2, m.getTenTH());
+            pr.setObject(3, m.getTrangThaiTH());
+            pr.setObject(4, id);
+            return pr.executeUpdate();
+        } catch (Exception e) { // không sửa được
+            return 0;
+        }
+    }
+
     // Select bảng Thuộc Tính Kích Cỡ
     public ArrayList<KichCoViewModel> getAllKC() {
         sql = "SELECT ID,MAKC,TENKC,TRANGTHAIKC FROM KICHCO";
@@ -297,6 +342,21 @@ public class SanPhamService implements iSanPhamService {
         } catch (Exception e) {
             // thêm thất bại
             e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int suaTTKC(int id, KichCoViewModel m) {
+        sql = "update KICHCO set MAKC=?,TENKC=?,TRANGTHAIKC=? where id=?";
+
+        try {
+            pr = con.prepareStatement(sql);
+            pr.setObject(1, m.getMaKC());
+            pr.setObject(2, m.getTenKC());
+            pr.setObject(3, m.getTrangThaiKC());
+            pr.setObject(4, id);
+            return pr.executeUpdate();
+        } catch (Exception e) { // không sửa được
             return 0;
         }
     }
