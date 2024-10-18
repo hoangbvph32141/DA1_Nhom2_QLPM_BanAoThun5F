@@ -14,6 +14,12 @@ public class ThuongHieuViewModel {
         this.trangThaiTH = trangThaiTH;
     }
 
+    public ThuongHieuViewModel(String maTH, String tenTH, int trangThaiTH) {
+        this.maTH = maTH;
+        this.tenTH = tenTH;
+        this.trangThaiTH = trangThaiTH;
+    }
+
     public ThuongHieuViewModel() {
     }
 

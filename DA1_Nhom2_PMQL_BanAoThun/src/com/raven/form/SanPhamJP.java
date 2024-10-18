@@ -42,6 +42,12 @@ public class SanPhamJP extends javax.swing.JPanel {
             cboTrangThaiSP.addItem(String.valueOf(i));
         }
 
+        // Trạng thái TTMS
+        cboTrangThaiThuocTinh.removeAllItems();
+        for (int i = 1; i <= 2; i++) {
+            cboTrangThaiThuocTinh.addItem(String.valueOf(i));
+        }
+
     }
 
     // load danh sách sản phẩm
@@ -67,15 +73,7 @@ public class SanPhamJP extends javax.swing.JPanel {
         }
     }
 
-    // readForm Sản Phẩm
-    SanPhamViewModel readFormSP() {
-        String maSP = txtMaSP.getText().trim();
-        String tenSP = txtTenSP.getText().trim();
-        int trangThaiSP = Integer.parseInt(cboTrangThaiSP.getSelectedItem().toString());
-        return new SanPhamViewModel(maSP, tenSP, trangThaiSP);
-    }
-
-// load bảng Thuộc Tính MS
+    // load bảng Thuộc Tính MS
     public void fillTableMS(ArrayList<MauSacViewModel> list) {
         model = (DefaultTableModel) tblThuocTinh.getModel();
         model.setRowCount(0); // xoá dl cũ trong bảng
@@ -109,6 +107,46 @@ public class SanPhamJP extends javax.swing.JPanel {
         for (KichCoViewModel x : list) {
             model.addRow(x.toDataRow());
         }
+    }
+
+    // readForm Sản Phẩm
+    SanPhamViewModel readFormSP() {
+        String maSP = txtMaSP.getText().trim();
+        String tenSP = txtTenSP.getText().trim();
+        int trangThaiSP = Integer.parseInt(cboTrangThaiSP.getSelectedItem().toString());
+        return new SanPhamViewModel(maSP, tenSP, trangThaiSP);
+    }
+
+    // readForm Thuộc Tính MS
+    MauSacViewModel readFormMS() {
+        String mathuocTinhMS = txtMaThuocTinh.getText().trim();
+        String tenthuocTinhMS = txtTenThuocTinh.getText().trim();
+        int trangThaiTTMS = Integer.parseInt(cboTrangThaiThuocTinh.getSelectedItem().toString());
+        return new MauSacViewModel(mathuocTinhMS, tenthuocTinhMS, trangThaiTTMS);
+    }
+
+    // readForm Thuộc Tính CL
+    ChatLieuViewModel readFormCL() {
+        String mathuocTinhCL = txtMaThuocTinh.getText().trim();
+        String tenthuocTinhCL = txtTenThuocTinh.getText().trim();
+        int trangThaiTTCL = Integer.parseInt(cboTrangThaiThuocTinh.getSelectedItem().toString());
+        return new ChatLieuViewModel(mathuocTinhCL, tenthuocTinhCL, trangThaiTTCL);
+    }
+
+    // readForm Thuộc Tính TH
+    ThuongHieuViewModel readFormTH() {
+        String mathuocTinhTH = txtMaThuocTinh.getText().trim();
+        String tenthuocTinhTH = txtTenThuocTinh.getText().trim();
+        int trangThaiTTTH = Integer.parseInt(cboTrangThaiThuocTinh.getSelectedItem().toString());
+        return new ThuongHieuViewModel(mathuocTinhTH, tenthuocTinhTH, trangThaiTTTH);
+    }
+
+    // readForm Thuộc Tính KC
+    KichCoViewModel readFormKC() {
+        String mathuocTinhKC = txtMaThuocTinh.getText().trim();
+        String tenthuocTinhKC = txtTenThuocTinh.getText().trim();
+        int trangThaiTTKC = Integer.parseInt(cboTrangThaiThuocTinh.getSelectedItem().toString());
+        return new KichCoViewModel(mathuocTinhKC, tenthuocTinhKC, trangThaiTTKC);
     }
 
     /**
@@ -533,6 +571,11 @@ public class SanPhamJP extends javax.swing.JPanel {
         cboTrangThaiThuocTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Còn Hàng", "Hết Hàng" }));
 
         btnThemTT.setText("Thêm");
+        btnThemTT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemTTActionPerformed(evt);
+            }
+        });
 
         btnSuaTT.setText("Sửa");
 
@@ -795,6 +838,64 @@ public class SanPhamJP extends javax.swing.JPanel {
         // TODO add your handling code here:
         this.fillTableKC(sm.getAllKC());
     }//GEN-LAST:event_rboKichCoActionPerformed
+
+    private void btnThemTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemTTActionPerformed
+        // TODO add your handling code here:
+        if (rboMauSac.isSelected()) {
+            if (this.readFormMS() != null) {
+                int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm Màu Sắc không ?");
+                if (chon == 0) {
+                    sm.themTTMS(this.readFormMS());
+                    this.fillTableMS(sm.getAllMS());
+                    JOptionPane.showMessageDialog(this, "thêm Màu Sắc thành công");
+                } else {
+                    JOptionPane.showMessageDialog(this, "bạn không chọn thêm");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "them that bai");
+            }
+        } else if (rboChatLieu.isSelected()) {
+            if (this.readFormCL() != null) {
+                int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm Chất Liệu không ?");
+                if (chon == 0) {
+                    sm.themTTCL(this.readFormCL());
+                    this.fillTableCL(sm.getAllCL());
+                    JOptionPane.showMessageDialog(this, "thêm Chất Liệu thành công");
+                } else {
+                    JOptionPane.showMessageDialog(this, "bạn không chọn thêm");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "them that bai");
+            }
+        } else if (rboThuongHieu.isSelected()) {
+            if (this.readFormTH() != null) {
+                int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm Thương Hiệu không ?");
+                if (chon == 0) {
+                    sm.themTTTH(this.readFormTH());
+                    this.fillTableTH(sm.getAllTH());
+                    JOptionPane.showMessageDialog(this, "thêm Thương Hiệu thành công");
+                } else {
+                    JOptionPane.showMessageDialog(this, "ban không chọn thêm");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "them that bai");
+            }
+        } else if (rboKichCo.isSelected()) {
+            if (this.readFormKC() != null) {
+                int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm Kích Cỡ không ?");
+                if (chon == 0) {
+                    sm.themTTKC(this.readFormKC());
+                    this.fillTableKC(sm.getAllKC());
+                    JOptionPane.showMessageDialog(this, "thêm Kích Cỡ thành công");
+                } else {
+                    JOptionPane.showMessageDialog(this, "bạn không chọn thêm");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "them that bai");
+            }
+        }
+
+    }//GEN-LAST:event_btnThemTTActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -27,7 +27,7 @@ public class SanPhamService implements iSanPhamService {
         con = DBConnect.getConnection();
     }
 
-    // Select bảng Sản Phẩm
+    // bảng Sản Phẩm
     public ArrayList<SanPhamViewModel> getAllSP() {
         sql = "SELECT ID,MASP,TENSP,TRANGTHAISP FROM SANPHAM";
 
@@ -162,6 +162,22 @@ public class SanPhamService implements iSanPhamService {
         }
     }
 
+    public int themTTMS(MauSacViewModel m) {
+        sql = "insert into MAUSAC(MAMS,TENMS,TRANGTHAIMS) values(?,?,?)";
+        try {
+            con = DBConnect.getConnection();
+            pr = con.prepareStatement(sql);
+            pr.setObject(1, m.getMaMS());
+            pr.setObject(2, m.getTenMS());
+            pr.setObject(3, m.getTrangThaiMS());
+            return pr.executeUpdate(); // thêm sửa xoá
+        } catch (Exception e) {
+            // thêm thất bại
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     // Select bảng Thuộc Tính Chất Liệu
     public ArrayList<ChatLieuViewModel> getAllCL() {
         sql = "SELECT ID,MACL,TENCL,TRANGTHAICL FROM CHATLIEU";
@@ -184,6 +200,22 @@ public class SanPhamService implements iSanPhamService {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public int themTTCL(ChatLieuViewModel m) {
+        sql = "insert into CHATLIEU(MACL,TENCL,TRANGTHAICL) values(?,?,?)";
+        try {
+            con = DBConnect.getConnection();
+            pr = con.prepareStatement(sql);
+            pr.setObject(1, m.getMaCL());
+            pr.setObject(2, m.getTenCL());
+            pr.setObject(3, m.getTrangThaiMS()); // ở viewmodel đặt đặt là trạng thái MS => đây là sai hãy sửa
+            return pr.executeUpdate();
+        } catch (Exception e) {
+            // thêm thất bại
+            e.printStackTrace();
+            return 0;
         }
     }
 
@@ -212,6 +244,22 @@ public class SanPhamService implements iSanPhamService {
         }
     }
 
+    public int themTTTH(ThuongHieuViewModel m) {
+        sql = "insert into THUONGHIEU(MATH,TENTH,TRANGTHAITH) values(?,?,?)";
+        try {
+            con = DBConnect.getConnection();
+            pr = con.prepareStatement(sql);
+            pr.setObject(1, m.getMaTH());
+            pr.setObject(2, m.getTenTH());
+            pr.setObject(3, m.getTrangThaiTH());
+            return pr.executeUpdate();
+        } catch (Exception e) {
+            // thêm thất bại
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     // Select bảng Thuộc Tính Kích Cỡ
     public ArrayList<KichCoViewModel> getAllKC() {
         sql = "SELECT ID,MAKC,TENKC,TRANGTHAIKC FROM KICHCO";
@@ -234,6 +282,22 @@ public class SanPhamService implements iSanPhamService {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public int themTTKC(KichCoViewModel m) {
+        sql = "insert into KICHCO(MAKC,TENKC,TRANGTHAIKC) values(?,?,?)";
+        try {
+            con = DBConnect.getConnection();
+            pr = con.prepareStatement(sql);
+            pr.setObject(1, m.getMaKC());
+            pr.setObject(2, m.getTenKC());
+            pr.setObject(3, m.getTrangThaiKC());
+            return pr.executeUpdate();
+        } catch (Exception e) {
+            // thêm thất bại
+            e.printStackTrace();
+            return 0;
         }
     }
 
