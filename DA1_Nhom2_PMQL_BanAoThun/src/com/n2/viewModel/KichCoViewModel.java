@@ -14,6 +14,14 @@ public class KichCoViewModel {
         this.trangThaiKC = trangThaiKC;
     }
 
+    public KichCoViewModel(String tenKC) {
+        this.tenKC = tenKC;
+    }
+
+    public KichCoViewModel(int IDKC) {
+        this.IDKC = IDKC;
+    }
+
     public KichCoViewModel(String maKC, String tenKC, int trangThaiKC) {
         this.maKC = maKC;
         this.tenKC = tenKC;

@@ -11,6 +11,7 @@ import com.n2.iService.SanPhamService;
 import com.n2.viewModel.ChatLieuViewModel;
 import com.n2.viewModel.KichCoViewModel;
 import com.n2.viewModel.MauSacViewModel;
+import com.n2.viewModel.SanPhamCTViewModel;
 import com.n2.viewModel.SanPhamChiTietViewModel;
 import com.n2.viewModel.SanPhamViewModel;
 import com.n2.viewModel.ThuongHieuViewModel;
@@ -34,8 +35,9 @@ public class SanPhamJP extends javax.swing.JPanel {
      */
     public SanPhamJP() {
         initComponents();
-        loadSPCT();
+        //loadSPCT();
         this.fillTableSP(sm.getAllSP());
+        this.fillTableSPCT(sm.getAllSPCT());
 
         // Trạng thái SP
         cboTrangThaiSP.removeAllItems();
@@ -58,24 +60,32 @@ public class SanPhamJP extends javax.swing.JPanel {
     }
 
     // load danh sách sản phẩm
-    public void loadSPCT() {
-        List<SanPhamChiTietViewModel> list = banHangService.getAllSPCT();
-        model = (DefaultTableModel) tblSPCT.getModel();
-        model.setRowCount(0);
-        int index = 1;
-        for (SanPhamChiTietViewModel x : list) {
-            model.addRow(new Object[]{
-                index, x.getMaSPCT(), x.getTenSP(), x.getSoLuongTon(), x.getDonGia(), x.getTenKC(), x.getTenCL(), x.getTenMS(), x.trangThai(x.getTrangThaiSPCT())
-            });
-            index++;
-        }
-    }
-
+//    public void loadSPCT() {
+//        List<SanPhamChiTietViewModel> list = banHangService.getAllSPCT();
+//        model = (DefaultTableModel) tblSPCT.getModel();
+//        model.setRowCount(0);
+//        int index = 1;
+//        for (SanPhamChiTietViewModel x : list) {
+//            model.addRow(new Object[]{
+//                index, x.getMaSPCT(), x.getTenSP(), x.getSoLuongTon(), x.getDonGia(), x.getTenKC(), x.getTenCL(), x.getTenMS(), x.trangThai(x.getTrangThaiSPCT())
+//            });
+//            index++;
+//        }
+//    }
     // load bảng sản phẩm
     public void fillTableSP(ArrayList<SanPhamViewModel> list) {
         model = (DefaultTableModel) tblSP.getModel();
         model.setRowCount(0); // xoá dl cũ trong bảng
         for (SanPhamViewModel x : list) {
+            model.addRow(x.toDataRow());
+        }
+    }
+
+    // load bảng sản phẩm chi tiết
+    public void fillTableSPCT(ArrayList<SanPhamCTViewModel> list) {
+        model = (DefaultTableModel) tblSPCT.getModel();
+        model.setRowCount(0); // xoá dl cũ trong bảng
+        for (SanPhamCTViewModel x : list) {
             model.addRow(x.toDataRow());
         }
     }
@@ -122,6 +132,74 @@ public class SanPhamJP extends javax.swing.JPanel {
         String tenSP = txtTenSP.getText().trim();
         int trangThaiSP = Integer.parseInt(cboTrangThaiSP.getSelectedItem().toString());
         return new SanPhamViewModel(maSP, tenSP, trangThaiSP);
+    }
+
+    // readForm Sản Phẩm Chi Tiết
+    SanPhamCTViewModel readFormSPCT() {
+        // Lấy giá trị từ combobox và kiểm tra null
+        MauSacViewModel mauSac = (MauSacViewModel) cboMauSac.getSelectedItem();
+        ChatLieuViewModel chatLieu = (ChatLieuViewModel) cboChatLieu.getSelectedItem();
+        ThuongHieuViewModel thuongHieu = (ThuongHieuViewModel) cboThuongHieu.getSelectedItem();
+        KichCoViewModel kichCo = (KichCoViewModel) cboKichCo.getSelectedItem();
+
+        if (mauSac == null || chatLieu == null || thuongHieu == null || kichCo == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn đầy đủ các thông tin về màu sắc, chất liệu, thương hiệu, kích cỡ.");
+            return null; // Trả về null nếu người dùng chưa chọn đủ thông tin
+        }
+
+        // Lấy giá trị từ combobox trạng thái
+        int trangThai;
+        try {
+            trangThai = Integer.parseInt(cboTrangThaiSPCT.getSelectedItem().toString());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Trạng thái không hợp lệ.");
+            return null;
+        }
+
+        // Lấy dữ liệu từ form, kiểm tra dữ liệu nhập vào có hợp lệ không
+        String maSPCT = txtMaSPCT.getText().trim();
+        String nguoiTao = txtNguoiTao.getText().trim();
+
+        int soLuong;
+        try {
+            soLuong = Integer.parseInt(txtSoLuongSPCT.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Số lượng phải là số nguyên.");
+            return null;
+        }
+
+        float donGia;
+        try {
+            donGia = Float.parseFloat(txtDonGiaSPCT.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Đơn giá phải là số thập phân.");
+            return null;
+        }
+
+        String moTa = txtMoTaSPCT.getText().trim();
+
+        // Lấy giá trị từ txtIDSP
+        String idSPText = txtIDSP.getText().trim(); // Lấy giá trị từ txtIDSP và xóa khoảng trắng
+
+        if (idSPText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "ID sản phẩm không được để trống.");
+            return null; // Ngừng thực hiện nếu ID sản phẩm trống
+        }
+
+        int idSP;
+        try {
+            idSP = Integer.parseInt(idSPText); // Chuyển đổi chuỗi sang số nguyên
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "ID sản phẩm không hợp lệ. Vui lòng nhập số nguyên.");
+            return null; // Ngừng thực hiện nếu không thể chuyển đổi thành số nguyên
+        }
+
+        // Tạo đối tượng SanPhamViewModel từ ID sản phẩm
+        SanPhamViewModel spvm = new SanPhamViewModel(idSP); // Giả sử bạn có constructor nhận ID sản phẩm
+
+        // Trả về đối tượng SanPhamCTViewModel với dữ liệu đã nhập
+        return new SanPhamCTViewModel(mauSac, chatLieu, thuongHieu, kichCo, spvm, maSPCT, nguoiTao, soLuong, moTa, trangThai, donGia);
+
     }
 
     // readForm Thuộc Tính MS
@@ -234,6 +312,8 @@ public class SanPhamJP extends javax.swing.JPanel {
         btnThemSP = new javax.swing.JButton();
         btnSuaSP = new javax.swing.JButton();
         btnXoaSP = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        txtIDSP = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSP = new javax.swing.JTable();
@@ -314,32 +394,42 @@ public class SanPhamJP extends javax.swing.JPanel {
 
         btnXoaSP.setText("Xoá");
 
+        jLabel17.setText("ID Sản Phẩm");
+
+        txtIDSP.setEditable(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtTenSP)
                     .addComponent(txtMaSP)
-                    .addComponent(cboTrangThaiSP, 0, 166, Short.MAX_VALUE))
+                    .addComponent(cboTrangThaiSP, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIDSP, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSuaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThemSP, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+                .addGap(28, 28, 28))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(txtIDSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -354,7 +444,7 @@ public class SanPhamJP extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addComponent(cboTrangThaiSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoaSP))
-                .addGap(60, 60, 60))
+                .addGap(35, 35, 35))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Sản Phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
@@ -391,7 +481,7 @@ public class SanPhamJP extends javax.swing.JPanel {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Chi Tiết Sản Phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
@@ -617,10 +707,10 @@ public class SanPhamJP extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(46, Short.MAX_VALUE))
@@ -829,13 +919,16 @@ public class SanPhamJP extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSPMouseClicked
-        // TODO add your handling code here:
+
         int row = this.tblSP.getSelectedRow();
         if (row == -1) {
             return;
         }
+        int idSP = -1; // Đặt giá trị mặc định cho idSP
+        idSP = (int) tblSP.getValueAt(row, 0); // Lấy ID sản phẩm từ dòng được chọn
 
         SanPhamViewModel m = this.sm.getAllSP().get(row);
+        this.txtIDSP.setText(String.valueOf(idSP)); // Hiển thị ID sản phẩm lên ô txtIDSP
         this.txtMaSP.setText(m.getMaSP());
         this.txtTenSP.setText(m.getTenSP());
         int nam = this.cboTrangThaiSP.getSelectedIndex();
@@ -1073,34 +1166,22 @@ public class SanPhamJP extends javax.swing.JPanel {
     }//GEN-LAST:event_btnResetTTActionPerformed
 
     private void btnThemSPCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSPCTActionPerformed
-        // TODO add your handling code here:
-        // Lấy dữ liệu từ form
-        String maSPCT = txtMaSPCT.getText();
-        String nguoiTao = txtNguoiTao.getText();
-        int soLuong = Integer.parseInt(txtSoLuongSPCT.getText());
-        double donGia = Double.parseDouble(txtDonGiaSPCT.getText());
-        String moTa = txtMoTaSPCT.getText();
-
-        // Lấy giá trị từ combobox
-        MauSacViewModel mauSac = (MauSacViewModel) cboMauSac.getSelectedItem();
-        ChatLieuViewModel chatLieu = (ChatLieuViewModel) cboChatLieu.getSelectedItem();
-        ThuongHieuViewModel thuongHieu = (ThuongHieuViewModel) cboThuongHieu.getSelectedItem();
-        KichCoViewModel kichCo = (KichCoViewModel) cboKichCo.getSelectedItem();
-        int trangThai = Integer.parseInt(cboTrangThaiSPCT.getSelectedItem().toString());
-
-        // Tạo đối tượng SanPhamChiTiet
-        SanPhamChiTiet spct = new SanPhamChiTiet();
-
-        // Gọi phương thức service để lưu sản phẩm chi tiết vào database
-        SanPhamService sanPhamService = new SanPhamService();
-        int result = sanPhamService.themSPCT(spct);
-
-        if (result > 0) {
-            JOptionPane.showMessageDialog(this, "Thêm sản phẩm chi tiết thành công!");
-            // Cập nhật lại bảng danh sách sản phẩm chi tiết nếu có
+        if (this.readFormSPCT() != null) {
+            int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không ?");
+            if (chon == 0) {
+                SanPhamCTViewModel spct = this.readFormSPCT();
+                System.out.println("Sản phẩm chi tiết sẽ được thêm: " + spct);
+                sm.themSPCT(spct);
+                this.fillTableSP(sm.getAllSP());
+                JOptionPane.showMessageDialog(this, "Thêm thành công");
+            } else {
+                JOptionPane.showMessageDialog(this, "Bạn không chọn thêm");
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Thêm sản phẩm chi tiết thất bại!");
+            JOptionPane.showMessageDialog(this, "Thêm thất bại");
         }
+
+
     }//GEN-LAST:event_btnThemSPCTActionPerformed
 
 
@@ -1132,6 +1213,7 @@ public class SanPhamJP extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1161,6 +1243,7 @@ public class SanPhamJP extends javax.swing.JPanel {
     private javax.swing.JTable tblSPCT;
     private javax.swing.JTable tblThuocTinh;
     private javax.swing.JTextField txtDonGiaSPCT;
+    private javax.swing.JTextField txtIDSP;
     private javax.swing.JTextField txtMaSP;
     private javax.swing.JTextField txtMaSPCT;
     private javax.swing.JTextField txtMaThuocTinh;

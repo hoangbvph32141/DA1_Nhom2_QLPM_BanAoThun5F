@@ -20,6 +20,14 @@ public class MauSacViewModel {
         this.trangThaiMS = trangThaiMS;
     }
 
+    public MauSacViewModel(int IDMS) {
+        this.IDMS = IDMS;
+    }
+
+    public MauSacViewModel(String tenMS) {
+        this.tenMS = tenMS;
+    }
+
     public MauSacViewModel() {
     }
 

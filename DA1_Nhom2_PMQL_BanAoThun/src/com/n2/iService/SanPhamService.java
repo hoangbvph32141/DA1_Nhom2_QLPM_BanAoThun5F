@@ -7,6 +7,7 @@ import com.n2.util.DBConnect;
 import com.n2.viewModel.ChatLieuViewModel;
 import com.n2.viewModel.KichCoViewModel;
 import com.n2.viewModel.MauSacViewModel;
+import com.n2.viewModel.SanPhamCTViewModel;
 import com.n2.viewModel.SanPhamChiTietViewModel;
 import com.n2.viewModel.SanPhamViewModel;
 import com.n2.viewModel.ThuongHieuViewModel;
@@ -84,7 +85,62 @@ public class SanPhamService implements iSanPhamService {
     }
 
     //
-    public int themSPCT(SanPhamChiTiet spct) {
+    public ArrayList<SanPhamCTViewModel> getAllSPCT() {
+        sql = "SELECT IDMS,IDCL,IDTH,IDKC,IDSP,MASPCT,NGUOITAO,SOLUONGTON,MOTA,TRANGTHAISPCT,DONGIA FROM SANPHAMCHITIET";
+
+        ArrayList list_SPCT = new ArrayList<>();
+        try {
+            con = DBConnect.getConnection();
+            pr = con.prepareStatement(sql);
+            rs = pr.executeQuery();
+            while (rs.next()) {
+                int idMS = rs.getInt(1);
+                int idCL = rs.getInt(2);
+                int idTH = rs.getInt(3);
+                int idKC = rs.getInt(4);
+                int idSP = rs.getInt(5);
+                String maSPCT = rs.getString(6);
+                String nguoiTao = rs.getString(7);
+                int soLuongTon = rs.getInt(8);
+                String moTa = rs.getString(9);
+                int trangThaiSPCT = rs.getInt(10);
+                float donGia = rs.getFloat(11);
+                SanPhamCTViewModel ml = new SanPhamCTViewModel(idMS, idCL, idTH, idKC, idSP, maSPCT, nguoiTao, soLuongTon, moTa, trangThaiSPCT, donGia);
+                list_SPCT.add(ml);
+            }
+            return list_SPCT;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public int themSPCT(SanPhamCTViewModel spct) {
+        sql = "insert into SANPHAMCHITIET(IDMS,IDCL,IDTH,IDKC,IDSP,MASPCT,NGUOITAO,SOLUONGTON,MOTA,TRANGTHAISPCT,DONGIA) values(?,?,?,?,?,?,?,?,?,?,?)";
+
+        try {
+            PreparedStatement pr = con.prepareStatement(sql);
+            pr.setInt(1, spct.getIdMS());
+            pr.setInt(2, spct.getIdCL());
+            pr.setInt(3, spct.getIdTH());
+            pr.setInt(4, spct.getIdKC());
+            pr.setInt(5, spct.getIdSP());
+            pr.setString(6, spct.getMaSPCT());
+            pr.setString(7, spct.getNguoiTao());
+            pr.setInt(8, spct.getSoLuongTon());
+            pr.setString(9, spct.getMoTa());
+            pr.setInt(10, spct.getTrangThaiSPCT());
+            pr.setFloat(11, spct.getDonGia());
+
+            return pr.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int themSPCTDemo(SanPhamChiTiet spct) {
         sql = "insert into SANPHAMCHITIET(IDMS,IDCL,IDTH,IDKC,IDSP,MASPCT,NGUOITAO,SOLUONGTON,MOTA,TRANGTHAISPCT,DONGIA) values(?,?,?,?,?,?,?,?,?,?,?)";
 
         try {

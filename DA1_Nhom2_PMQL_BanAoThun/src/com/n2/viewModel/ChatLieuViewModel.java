@@ -20,6 +20,14 @@ public class ChatLieuViewModel {
         this.trangThaiMS = trangThaiMS;
     }
 
+    public ChatLieuViewModel(int IDCL) {
+        this.IDCL = IDCL;
+    }
+
+    public ChatLieuViewModel(String tenCL) {
+        this.tenCL = tenCL;
+    }
+
     public ChatLieuViewModel() {
     }
 

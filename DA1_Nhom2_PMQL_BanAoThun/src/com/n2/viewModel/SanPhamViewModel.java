@@ -17,6 +17,10 @@ public class SanPhamViewModel {
         this.trangThaiSP = trangThaiSP;
     }
 
+    public SanPhamViewModel(int ID) {
+        this.ID = ID;
+    }
+
     public SanPhamViewModel(String maSP, String tenSP, int trangThaiSP) {
         this.maSP = maSP;
         this.tenSP = tenSP;

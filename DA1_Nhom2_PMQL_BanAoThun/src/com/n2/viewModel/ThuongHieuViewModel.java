@@ -14,10 +14,18 @@ public class ThuongHieuViewModel {
         this.trangThaiTH = trangThaiTH;
     }
 
+    public ThuongHieuViewModel(int IDTH) {
+        this.IDTH = IDTH;
+    }
+
     public ThuongHieuViewModel(String maTH, String tenTH, int trangThaiTH) {
         this.maTH = maTH;
         this.tenTH = tenTH;
         this.trangThaiTH = trangThaiTH;
+    }
+
+    public ThuongHieuViewModel(String tenTH) {
+        this.tenTH = tenTH;
     }
 
     public ThuongHieuViewModel() {
