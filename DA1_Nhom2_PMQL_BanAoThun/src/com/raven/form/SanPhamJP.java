@@ -45,18 +45,47 @@ public class SanPhamJP extends javax.swing.JPanel {
             cboTrangThaiSP.addItem(String.valueOf(i));
         }
 
+        // Trạng thái SPCT
+        cboTrangThaiSPCT.removeAllItems();
+        for (int i = 1; i <= 2; i++) {
+            cboTrangThaiSPCT.addItem(String.valueOf(i));
+        }
+
         // Trạng thái TTMS
         cboTrangThaiThuocTinh.removeAllItems();
         for (int i = 1; i <= 2; i++) {
             cboTrangThaiThuocTinh.addItem(String.valueOf(i));
         }
 
-        // load combobox Màu Sắc
-        loadDataToComboBoxMauSac();
-        loadDataToComboBoxChatLieu();
-        loadDataToComboBoxThuongHieu();
-        loadDataToComboBoxKichCo();
+        // Trạng thái Màu Sắc
+        cboMauSac.removeAllItems();
+        for (int i = 1; i <= 10; i++) {
+            cboMauSac.addItem(String.valueOf(i));
+        }
 
+        // Trạng thái Màu Sắc
+        cboChatLieu.removeAllItems();
+        for (int i = 1; i <= 10; i++) {
+            cboChatLieu.addItem(String.valueOf(i));
+        }
+
+        // Trạng thái Thương Hiệu
+        cboThuongHieu.removeAllItems();
+        for (int i = 1; i <= 10; i++) {
+            cboThuongHieu.addItem(String.valueOf(i));
+        }
+
+        // Trạng thái Kích Cỡ
+        cboKichCo.removeAllItems();
+        for (int i = 1; i <= 10; i++) {
+            cboKichCo.addItem(String.valueOf(i));
+        }
+
+        // load combobox Màu Sắc
+//        loadDataToComboBoxMauSac();
+//        loadDataToComboBoxChatLieu();
+//        loadDataToComboBoxThuongHieu();
+//        loadDataToComboBoxKichCo();
     }
 
     // load danh sách sản phẩm
@@ -136,70 +165,39 @@ public class SanPhamJP extends javax.swing.JPanel {
 
     // readForm Sản Phẩm Chi Tiết
     SanPhamCTViewModel readFormSPCT() {
-        // Lấy giá trị từ combobox và kiểm tra null
-        MauSacViewModel mauSac = (MauSacViewModel) cboMauSac.getSelectedItem();
-        ChatLieuViewModel chatLieu = (ChatLieuViewModel) cboChatLieu.getSelectedItem();
-        ThuongHieuViewModel thuongHieu = (ThuongHieuViewModel) cboThuongHieu.getSelectedItem();
-        KichCoViewModel kichCo = (KichCoViewModel) cboKichCo.getSelectedItem();
+        // Lấy đối tượng từ JComboBox
+//        MauSacViewModel mauSac = (MauSacViewModel) cboMauSac.getSelectedItem();
+//        ChatLieuViewModel chatLieu = (ChatLieuViewModel) cboChatLieu.getSelectedItem();
+//        ThuongHieuViewModel thuongHieu = (ThuongHieuViewModel) cboThuongHieu.getSelectedItem();
+//        KichCoViewModel kichCo = (KichCoViewModel) cboKichCo.getSelectedItem();
 
-        if (mauSac == null || chatLieu == null || thuongHieu == null || kichCo == null) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn đầy đủ các thông tin về màu sắc, chất liệu, thương hiệu, kích cỡ.");
-            return null; // Trả về null nếu người dùng chưa chọn đủ thông tin
-        }
-
+        // Lấy ID từ các đối tượng đã chọn
+//        int mauSacId = mauSac.getIDMS();
+//        int chatLieuId = chatLieu.getIDCL();
+//        int thuongHieuId = thuongHieu.getIDTH();
+//        int kichCoId = kichCo.getIDKC();
         // Lấy giá trị từ combobox trạng thái
-        int trangThai;
-        try {
-            trangThai = Integer.parseInt(cboTrangThaiSPCT.getSelectedItem().toString());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Trạng thái không hợp lệ.");
-            return null;
-        }
+        int mauSac = Integer.parseInt(cboMauSac.getSelectedItem().toString());
+        int chatLieu = Integer.parseInt(cboChatLieu.getSelectedItem().toString());
+        int thuongHieu = Integer.parseInt(cboThuongHieu.getSelectedItem().toString());
+        int kichCo = Integer.parseInt(cboKichCo.getSelectedItem().toString());
+        int trangThai = Integer.parseInt(cboTrangThaiSPCT.getSelectedItem().toString());
 
-        // Lấy dữ liệu từ form, kiểm tra dữ liệu nhập vào có hợp lệ không
+        // Lấy dữ liệu từ form
         String maSPCT = txtMaSPCT.getText().trim();
         String nguoiTao = txtNguoiTao.getText().trim();
 
-        int soLuong;
-        try {
-            soLuong = Integer.parseInt(txtSoLuongSPCT.getText().trim());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Số lượng phải là số nguyên.");
-            return null;
-        }
-
-        float donGia;
-        try {
-            donGia = Float.parseFloat(txtDonGiaSPCT.getText().trim());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Đơn giá phải là số thập phân.");
-            return null;
-        }
+        int soLuong = Integer.parseInt(txtSoLuongSPCT.getText().trim());
+        float donGia = Float.parseFloat(txtDonGiaSPCT.getText().trim());
 
         String moTa = txtMoTaSPCT.getText().trim();
+        int idSPC = Integer.parseInt(txtIDSP.getText().trim());
 
-        // Lấy giá trị từ txtIDSP
-        String idSPText = txtIDSP.getText().trim(); // Lấy giá trị từ txtIDSP và xóa khoảng trắng
-
-        if (idSPText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "ID sản phẩm không được để trống.");
-            return null; // Ngừng thực hiện nếu ID sản phẩm trống
-        }
-
-        int idSP;
-        try {
-            idSP = Integer.parseInt(idSPText); // Chuyển đổi chuỗi sang số nguyên
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "ID sản phẩm không hợp lệ. Vui lòng nhập số nguyên.");
-            return null; // Ngừng thực hiện nếu không thể chuyển đổi thành số nguyên
-        }
-
-        // Tạo đối tượng SanPhamViewModel từ ID sản phẩm
-        SanPhamViewModel spvm = new SanPhamViewModel(idSP); // Giả sử bạn có constructor nhận ID sản phẩm
+        SanPhamViewModel spvm = sm.getSanPhamById(idSPC);
 
         // Trả về đối tượng SanPhamCTViewModel với dữ liệu đã nhập
-        return new SanPhamCTViewModel(mauSac, chatLieu, thuongHieu, kichCo, spvm, maSPCT, nguoiTao, soLuong, moTa, trangThai, donGia);
-
+        //return new SanPhamCTViewModel(mauSac, chatLieu, thuongHieu, kichCo, spvm, maSPCT, nguoiTao, soLuong, moTa, trangThai, donGia);
+        return new SanPhamCTViewModel(mauSac, chatLieu, thuongHieu, kichCo, trangThai, maSPCT, nguoiTao, soLuong, moTa, trangThai, donGia);
     }
 
     // readForm Thuộc Tính MS
@@ -235,61 +233,45 @@ public class SanPhamJP extends javax.swing.JPanel {
     }
 
     // Đổ dữ liệu màu sắc vào combobox
-    public void loadDataToComboBoxMauSac() {
-        SanPhamService sanPhamService = new SanPhamService(); // Khởi tạo service
-        ArrayList<MauSacViewModel> listMauSac = sanPhamService.getAllMS(); // Lấy danh sách màu sắc
-
-        // Xóa dữ liệu hiện có trong combobox (nếu cần)
-        cboMauSac.removeAllItems();
-
-        // Đổ từng màu sắc vào combobox
-        for (MauSacViewModel ms : listMauSac) {
-            cboMauSac.addItem(ms.getTenMS()); // Hoặc bạn có thể add mã màu thay vì tên
-        }
-    }
-
+//    public void loadDataToComboBoxMauSac() {
+//        SanPhamService sanPhamService = new SanPhamService();
+//        ArrayList<MauSacViewModel> listMauSac = sanPhamService.getAllMS();
+//        cboMauSac.removeAllItems();
+//
+//        for (MauSacViewModel ms : listMauSac) {
+//            cboMauSac.addItem(ms.getTenMS());
+//        }
+//    }
     // Đổ dữ liệu chất liệu vào combobox
-    public void loadDataToComboBoxChatLieu() {
-        SanPhamService sanPhamService = new SanPhamService(); // Khởi tạo service
-        ArrayList<ChatLieuViewModel> listChatLieu = sanPhamService.getAllCL(); // Lấy danh sách chất liệu
-
-        // Xóa dữ liệu hiện có trong combobox (nếu cần)
-        cboChatLieu.removeAllItems();
-
-        // Đổ từng chất liệu vào combobox
-        for (ChatLieuViewModel cl : listChatLieu) {
-            cboChatLieu.addItem(cl.getTenCL()); // Hoặc bạn có thể add mã màu thay vì tên
-        }
-    }
-
+//    public void loadDataToComboBoxChatLieu() {
+//        SanPhamService sanPhamService = new SanPhamService();
+//        ArrayList<ChatLieuViewModel> listChatLieu = sanPhamService.getAllCL();
+//        cboChatLieu.removeAllItems();
+//
+//        for (ChatLieuViewModel cl : listChatLieu) {
+//            cboChatLieu.addItem(cl.getTenCL());
+//        }
+//    }
     // Đổ dữ liệu Thương Hiệu vào combobox
-    public void loadDataToComboBoxThuongHieu() {
-        SanPhamService sanPhamService = new SanPhamService(); // Khởi tạo service
-        ArrayList<ThuongHieuViewModel> listThuongHieu = sanPhamService.getAllTH(); // Lấy danh sách thương hiệu
-
-        // Xóa dữ liệu hiện có trong combobox (nếu cần)
-        cboThuongHieu.removeAllItems();
-
-        // Đổ từng màu sắc vào combobox
-        for (ThuongHieuViewModel th : listThuongHieu) {
-            cboThuongHieu.addItem(th.getTenTH()); // Hoặc bạn có thể add mã màu thay vì tên
-        }
-    }
-
+//    public void loadDataToComboBoxThuongHieu() {
+//        SanPhamService sanPhamService = new SanPhamService();
+//        ArrayList<ThuongHieuViewModel> listThuongHieu = sanPhamService.getAllTH();
+//        cboThuongHieu.removeAllItems();
+//
+//        for (ThuongHieuViewModel th : listThuongHieu) {
+//            cboThuongHieu.addItem(th.getTenTH());
+//        }
+//    }
     // Đổ dữ liệu Thương Hiệu vào combobox
-    public void loadDataToComboBoxKichCo() {
-        SanPhamService sanPhamService = new SanPhamService(); // Khởi tạo service
-        ArrayList<KichCoViewModel> listKichCo = sanPhamService.getAllKC(); // Lấy danh sách thương hiệu
-
-        // Xóa dữ liệu hiện có trong combobox (nếu cần)
-        cboKichCo.removeAllItems();
-
-        // Đổ từng màu sắc vào combobox
-        for (KichCoViewModel kc : listKichCo) {
-            cboKichCo.addItem(kc.getTenKC()); // Hoặc bạn có thể add mã màu thay vì tên
-        }
-    }
-
+//    public void loadDataToComboBoxKichCo() {
+//        SanPhamService sanPhamService = new SanPhamService();
+//        ArrayList<KichCoViewModel> listKichCo = sanPhamService.getAllKC();
+//        cboKichCo.removeAllItems();
+//
+//        for (KichCoViewModel kc : listKichCo) {
+//            cboKichCo.addItem(kc.getTenKC());
+//        }
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -314,6 +296,7 @@ public class SanPhamJP extends javax.swing.JPanel {
         btnXoaSP = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         txtIDSP = new javax.swing.JTextField();
+        btnResetSP = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSP = new javax.swing.JTable();
@@ -398,6 +381,13 @@ public class SanPhamJP extends javax.swing.JPanel {
 
         txtIDSP.setEditable(false);
 
+        btnResetSP.setText("Reset");
+        btnResetSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetSPActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -416,10 +406,11 @@ public class SanPhamJP extends javax.swing.JPanel {
                     .addComponent(cboTrangThaiSP, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtIDSP, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSuaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnThemSP, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnXoaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnSuaSP, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+                    .addComponent(btnThemSP, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+                    .addComponent(btnXoaSP, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+                    .addComponent(btnResetSP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(28, 28, 28))
         );
         jPanel3Layout.setVerticalGroup(
@@ -428,22 +419,23 @@ public class SanPhamJP extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(txtIDSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIDSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnThemSP))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnThemSP))
+                    .addComponent(btnSuaSP))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSuaSP))
+                    .addComponent(btnXoaSP))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(cboTrangThaiSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnXoaSP))
+                    .addComponent(btnResetSP))
                 .addGap(35, 35, 35))
         );
 
@@ -658,13 +650,13 @@ public class SanPhamJP extends javax.swing.JPanel {
 
         tblSPCT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã Sản Phẩm", "Tên Sản Phẩm", "Số Lượng Còn", "Giá", "Kích Cỡ", "Chất Liệu", "Màu Sắc", "Trạng Thái"
+                "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"
             }
         ));
         tblSPCT.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -924,11 +916,11 @@ public class SanPhamJP extends javax.swing.JPanel {
         if (row == -1) {
             return;
         }
-        int idSP = -1; // Đặt giá trị mặc định cho idSP
-        idSP = (int) tblSP.getValueAt(row, 0); // Lấy ID sản phẩm từ dòng được chọn
+        int idSP = -1;
+        idSP = (int) tblSP.getValueAt(row, 0);
 
         SanPhamViewModel m = this.sm.getAllSP().get(row);
-        this.txtIDSP.setText(String.valueOf(idSP)); // Hiển thị ID sản phẩm lên ô txtIDSP
+        this.txtIDSP.setText(String.valueOf(idSP));
         this.txtMaSP.setText(m.getMaSP());
         this.txtTenSP.setText(m.getTenSP());
         int nam = this.cboTrangThaiSP.getSelectedIndex();
@@ -946,6 +938,7 @@ public class SanPhamJP extends javax.swing.JPanel {
             if (chon == 0) {
                 sm.themSP(this.readFormSP());
                 this.fillTableSP(sm.getAllSP());
+                this.fillTableSPCT(sm.getAllSPCT());
                 JOptionPane.showMessageDialog(this, "them thanh cong");
             } else {
                 JOptionPane.showMessageDialog(this, "ban khong chon them");
@@ -1001,7 +994,7 @@ public class SanPhamJP extends javax.swing.JPanel {
                 if (chon == 0) {
                     sm.themTTMS(this.readFormMS());
                     this.fillTableMS(sm.getAllMS());
-                    loadDataToComboBoxMauSac();
+                    //loadDataToComboBoxMauSac();
                     JOptionPane.showMessageDialog(this, "thêm Màu Sắc thành công");
                 } else {
                     JOptionPane.showMessageDialog(this, "bạn không chọn thêm");
@@ -1015,7 +1008,7 @@ public class SanPhamJP extends javax.swing.JPanel {
                 if (chon == 0) {
                     sm.themTTCL(this.readFormCL());
                     this.fillTableCL(sm.getAllCL());
-                    loadDataToComboBoxChatLieu();
+                    //loadDataToComboBoxChatLieu();
                     JOptionPane.showMessageDialog(this, "thêm Chất Liệu thành công");
                 } else {
                     JOptionPane.showMessageDialog(this, "bạn không chọn thêm");
@@ -1029,7 +1022,7 @@ public class SanPhamJP extends javax.swing.JPanel {
                 if (chon == 0) {
                     sm.themTTTH(this.readFormTH());
                     this.fillTableTH(sm.getAllTH());
-                    loadDataToComboBoxThuongHieu();
+                    //loadDataToComboBoxThuongHieu();
                     JOptionPane.showMessageDialog(this, "thêm Thương Hiệu thành công");
                 } else {
                     JOptionPane.showMessageDialog(this, "ban không chọn thêm");
@@ -1043,7 +1036,7 @@ public class SanPhamJP extends javax.swing.JPanel {
                 if (chon == 0) {
                     sm.themTTKC(this.readFormKC());
                     this.fillTableKC(sm.getAllKC());
-                    loadDataToComboBoxKichCo();
+                    //loadDataToComboBoxKichCo();
                     JOptionPane.showMessageDialog(this, "thêm Kích Cỡ thành công");
                 } else {
                     JOptionPane.showMessageDialog(this, "bạn không chọn thêm");
@@ -1166,26 +1159,31 @@ public class SanPhamJP extends javax.swing.JPanel {
     }//GEN-LAST:event_btnResetTTActionPerformed
 
     private void btnThemSPCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSPCTActionPerformed
+        // TODO add your handling code here:
         if (this.readFormSPCT() != null) {
             int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm không ?");
             if (chon == 0) {
-                SanPhamCTViewModel spct = this.readFormSPCT();
-                System.out.println("Sản phẩm chi tiết sẽ được thêm: " + spct);
-                sm.themSPCT(spct);
-                this.fillTableSP(sm.getAllSP());
-                JOptionPane.showMessageDialog(this, "Thêm thành công");
+                sm.themSPCT(this.readFormSPCT());
+                this.fillTableSPCT(sm.getAllSPCT());
+                JOptionPane.showMessageDialog(this, "thêm thành công");
             } else {
-                JOptionPane.showMessageDialog(this, "Bạn không chọn thêm");
+                JOptionPane.showMessageDialog(this, "bạn không chọn thêm");
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Thêm thất bại");
+            JOptionPane.showMessageDialog(this, "them that bai");
         }
-
-
     }//GEN-LAST:event_btnThemSPCTActionPerformed
+
+    private void btnResetSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetSPActionPerformed
+        // TODO add your handling code here:
+        txtIDSP.setText("");
+        txtMaSP.setText("");
+        txtTenSP.setText("");
+    }//GEN-LAST:event_btnResetSPActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnResetSP;
     private javax.swing.JButton btnResetSPCT;
     private javax.swing.JButton btnResetTT;
     private javax.swing.JButton btnSuaSP;

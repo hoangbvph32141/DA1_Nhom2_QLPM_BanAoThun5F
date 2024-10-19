@@ -123,10 +123,11 @@
                               <Component id="txtIDSP" alignment="0" min="-2" pref="166" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnSuaSP" min="-2" pref="82" max="-2" attributes="0"/>
-                              <Component id="btnThemSP" min="-2" pref="82" max="-2" attributes="0"/>
-                              <Component id="btnXoaSP" min="-2" pref="82" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="btnSuaSP" pref="82" max="32767" attributes="0"/>
+                              <Component id="btnThemSP" pref="82" max="32767" attributes="0"/>
+                              <Component id="btnXoaSP" pref="82" max="32767" attributes="0"/>
+                              <Component id="btnResetSP" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
@@ -139,24 +140,25 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtIDSP" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnThemSP" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtMaSP" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnThemSP" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnSuaSP" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtTenSP" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnSuaSP" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnXoaSP" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="cboTrangThaiSP" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnXoaSP" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnResetSP" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
@@ -226,6 +228,14 @@
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnResetSP">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Reset"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResetSPActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -687,20 +697,38 @@
                     <Component class="javax.swing.JTable" name="tblSPCT">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="9" rowCount="4">
-                            <Column editable="true" title="STT" type="java.lang.Object"/>
-                            <Column editable="true" title="M&#xe3; S&#x1ea3;n Ph&#x1ea9;m" type="java.lang.Object"/>
-                            <Column editable="true" title="T&#xea;n S&#x1ea3;n Ph&#x1ea9;m" type="java.lang.Object"/>
-                            <Column editable="true" title="S&#x1ed1; L&#x1b0;&#x1ee3;ng C&#xf2;n" type="java.lang.Object"/>
-                            <Column editable="true" title="Gi&#xe1;" type="java.lang.Object"/>
-                            <Column editable="true" title="K&#xed;ch C&#x1ee1;" type="java.lang.Object"/>
-                            <Column editable="true" title="Ch&#x1ea5;t Li&#x1ec7;u" type="java.lang.Object"/>
-                            <Column editable="true" title="M&#xe0;u S&#x1eaf;c" type="java.lang.Object"/>
-                            <Column editable="true" title="Tr&#x1ea1;ng Th&#xe1;i" type="java.lang.Object"/>
+                          <Table columnCount="12" rowCount="4">
+                            <Column editable="true" title="1" type="java.lang.Object"/>
+                            <Column editable="true" title="2" type="java.lang.Object"/>
+                            <Column editable="true" title="3" type="java.lang.Object"/>
+                            <Column editable="true" title="4" type="java.lang.Object"/>
+                            <Column editable="true" title="5" type="java.lang.Object"/>
+                            <Column editable="true" title="6" type="java.lang.Object"/>
+                            <Column editable="true" title="7" type="java.lang.Object"/>
+                            <Column editable="true" title="8" type="java.lang.Object"/>
+                            <Column editable="true" title="9" type="java.lang.Object"/>
+                            <Column editable="true" title="10" type="java.lang.Object"/>
+                            <Column editable="true" title="11" type="java.lang.Object"/>
+                            <Column editable="true" title="12" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>

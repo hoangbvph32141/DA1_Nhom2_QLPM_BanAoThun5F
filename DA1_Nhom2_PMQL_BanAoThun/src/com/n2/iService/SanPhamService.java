@@ -116,52 +116,51 @@ public class SanPhamService implements iSanPhamService {
         }
     }
 
-    public int themSPCT(SanPhamCTViewModel spct) {
+    public int themSPCT(SanPhamCTViewModel m) {
         sql = "insert into SANPHAMCHITIET(IDMS,IDCL,IDTH,IDKC,IDSP,MASPCT,NGUOITAO,SOLUONGTON,MOTA,TRANGTHAISPCT,DONGIA) values(?,?,?,?,?,?,?,?,?,?,?)";
-
         try {
-            PreparedStatement pr = con.prepareStatement(sql);
-            pr.setInt(1, spct.getIdMS());
-            pr.setInt(2, spct.getIdCL());
-            pr.setInt(3, spct.getIdTH());
-            pr.setInt(4, spct.getIdKC());
-            pr.setInt(5, spct.getIdSP());
-            pr.setString(6, spct.getMaSPCT());
-            pr.setString(7, spct.getNguoiTao());
-            pr.setInt(8, spct.getSoLuongTon());
-            pr.setString(9, spct.getMoTa());
-            pr.setInt(10, spct.getTrangThaiSPCT());
-            pr.setFloat(11, spct.getDonGia());
-
-            return pr.executeUpdate();
+            con = DBConnect.getConnection();
+            pr = con.prepareStatement(sql);
+            pr.setInt(1, m.getIdMS());
+            pr.setInt(2, m.getIdCL());
+            pr.setInt(3, m.getIdTH());
+            pr.setInt(4, m.getIdKC());
+            pr.setInt(5, m.getIdSP());
+            pr.setString(6, m.getMaSPCT());
+            pr.setString(7, m.getNguoiTao());
+            pr.setInt(8, m.getSoLuongTon());
+            pr.setString(9, m.getMoTa());
+            pr.setInt(10, m.getTrangThaiSPCT());
+            pr.setFloat(11, m.getDonGia());
+            return pr.executeUpdate(); // thêm sửa xoá
         } catch (Exception e) {
+            // thêm thất bại
             e.printStackTrace();
             return 0;
         }
     }
 
-    public int themSPCTDemo(SanPhamChiTiet spct) {
-        sql = "insert into SANPHAMCHITIET(IDMS,IDCL,IDTH,IDKC,IDSP,MASPCT,NGUOITAO,SOLUONGTON,MOTA,TRANGTHAISPCT,DONGIA) values(?,?,?,?,?,?,?,?,?,?,?)";
+    // Phương thức để lấy sản phẩm theo ID
+    public SanPhamViewModel getSanPhamById(int id) {
+        SanPhamViewModel spvm = null;
+        sql = "SELECT * FROM SANPHAM WHERE ID = ?";
 
         try {
-            PreparedStatement pr = con.prepareStatement(sql);
-            pr.setInt(1, spct.getIdMS());
-            pr.setInt(2, spct.getIdCL());
-            pr.setInt(3, spct.getIdTH());
-            pr.setInt(4, spct.getIdKC());
-            pr.setInt(5, spct.getIdSP());
-            pr.setString(6, spct.getMaSPCT());
-            pr.setString(7, spct.getNguoiTao());
-            pr.setInt(8, spct.getSoLuongTon());
-            pr.setString(9, spct.getMoTa());
-            pr.setInt(10, spct.getTrangThaiSPCT());
-            pr.setFloat(11, spct.getDonGia());
+            con = DBConnect.getConnection();
+            pr = con.prepareStatement(sql);
+            rs = pr.executeQuery();
+            pr.setInt(1, id);
 
-            return pr.executeUpdate();
+            if (rs.next()) {
+                spvm = new SanPhamViewModel();
+                // Giả định các trường tương ứng
+                spvm.setID(rs.getInt("ID"));
+                // Thêm các thuộc tính khác nếu cần
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
         }
+        return spvm;
     }
 
     // Select bảng Thuộc Tính Màu Sắc
