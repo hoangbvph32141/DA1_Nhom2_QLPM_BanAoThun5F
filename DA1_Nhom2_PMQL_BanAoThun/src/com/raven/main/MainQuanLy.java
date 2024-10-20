@@ -6,73 +6,98 @@
 package com.raven.main;
 
 import com.raven.event.EventMenuSelected;
-import com.raven.form.DangNhapJP;
-import com.raven.form.ThieuQuyenHanChuaDangNhapJP;
+import com.raven.form.BanHangJP;
+import com.raven.form.DangXuatJP;
+import com.raven.form.HoaDonJP;
+import com.raven.form.KhachHangJP;
+import com.raven.form.KhuyenMaiJP;
+import com.raven.form.NhanVienJP;
+import com.raven.form.SanPhamJP;
+import com.raven.form.ThongKeJP;
 import java.awt.Color;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 
 /**
  *
  * @author RAVEN
  */
-public class Main extends javax.swing.JFrame {
+public class MainQuanLy extends javax.swing.JFrame {
 
     /**
      * Creates new form Main
      */
-    private DangNhapJP dangNhap;
-    private ThieuQuyenHanChuaDangNhapJP thieuQuyenHanChuaDangNhapJP;
-    public Main() {
+    private BanHangJP banHang;
+    private HoaDonJP hoadon;
+    private SanPhamJP sanPham;
+    private KhuyenMaiJP khuyenMai;
+    private KhachHangJP khachHang;
+    private NhanVienJP nhanVien;
+    private ThongKeJP thongKe;
+    private DangXuatJP dangXuat;
+//    private DangNhapJP dangNhap;
+//    private ThieuQuyenHanChuaDangNhapJP thieuQuyenHanChuaDangNhapJP;
+
+    public MainQuanLy() throws ParseException {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
-        thieuQuyenHanChuaDangNhapJP = new ThieuQuyenHanChuaDangNhapJP();
-        dangNhap = new DangNhapJP();
-        menu.initMoving(Main.this);
+        banHang = new BanHangJP();
+        hoadon = new HoaDonJP();
+        sanPham = new SanPhamJP();
+        khuyenMai = new KhuyenMaiJP();
+        khachHang = new KhachHangJP();
+        thongKe = new ThongKeJP();
+        nhanVien = new NhanVienJP();
+        dangXuat = new DangXuatJP();
+        menu.initMoving(MainQuanLy.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
             @Override
             public void selected(int index) {
                 System.out.println("index: " + index);
 //                if (index == 1) {
-//                    setForm(banHang);
+//                    setForm(thieuQuyenHanChuaDangNhapJP);
 //                } else if (index == 3) {
-//                    setForm(hoadon);
+//                    setForm(thieuQuyenHanChuaDangNhapJP);
 //                } else if (index == 5) {
-//                    setForm(sanPham);
+//                    setForm(thieuQuyenHanChuaDangNhapJP);
 //                } else if (index == 7) {
-//                    setForm(khuyenMai);
+//                    setForm(thieuQuyenHanChuaDangNhapJP);
 //                } else if (index == 9) {
-//                    setForm(khachHang);
+//                    setForm(thieuQuyenHanChuaDangNhapJP);
 //                } else if (index == 11) {
-//                    setForm(nhanVien);
+//                    setForm(thieuQuyenHanChuaDangNhapJP);
 //                } else if (index == 13) {
-//                    setForm(thongKe);
+//                    setForm(thieuQuyenHanChuaDangNhapJP);
 //                } else if (index == 15) {
-//                    setForm(dangXuat);
+//                    setForm(thieuQuyenHanChuaDangNhapJP);
+//                }else if (index == 17) {
+//                    setForm(dangNhap);
 //                }
                 if (index == 1) {
-                    setForm(thieuQuyenHanChuaDangNhapJP);
+                    setForm(banHang);
                 } else if (index == 3) {
-                    setForm(thieuQuyenHanChuaDangNhapJP);
+                    setForm(hoadon);
                 } else if (index == 5) {
-                    setForm(thieuQuyenHanChuaDangNhapJP);
+                    setForm(sanPham);
                 } else if (index == 7) {
-                    setForm(thieuQuyenHanChuaDangNhapJP);
+                    setForm(khuyenMai);
                 } else if (index == 9) {
-                    setForm(thieuQuyenHanChuaDangNhapJP);
+                    setForm(khachHang);
                 } else if (index == 11) {
-                    setForm(thieuQuyenHanChuaDangNhapJP);
+                    setForm(nhanVien);
                 } else if (index == 13) {
-                    setForm(thieuQuyenHanChuaDangNhapJP);
-                } else if (index == 15) {
-                    setForm(thieuQuyenHanChuaDangNhapJP);
-                } else if (index == 19) {
-                    setForm(dangNhap);
+                    setForm(thongKe);
+                } else if (index == 16) {
+                    setForm(dangXuat);
                 }
+
                 System.out.println(index);
             }
         });
         //  set when system open start with home form
-        setForm(new DangNhapJP());
+        setForm(new BanHangJP());
     }
 
     private void setForm(JComponent com) {
@@ -159,13 +184,13 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainQuanLy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainQuanLy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainQuanLy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainQuanLy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -187,7 +212,11 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                try {
+                    new MainQuanLy().setVisible(true);
+                } catch (ParseException ex) {
+                    Logger.getLogger(MainQuanLy.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             }
         });

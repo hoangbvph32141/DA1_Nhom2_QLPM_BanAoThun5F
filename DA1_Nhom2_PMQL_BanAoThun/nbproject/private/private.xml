@@ -3,10 +3,36 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/viewModel/SanPhamCTViewModel.java</file>
-            <file>file:/F:/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iService/SanPhamService.java</file>
-            <file>file:/F:/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/viewModel/SanPhamViewModel.java</file>
-            <file>file:/F:/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/form/SanPhamJP.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/main/MainNhanVien.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/util/DBConnect.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iService/KhachHangService.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/form_nhanVien/KhuyenMaiNVJP.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/form/DangXuatJP.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/domainModel/KhuyenMai.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iRepository/KhachHangRepository.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/domainModel/NhanVien.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iService/DangNhapService.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/domainModel/DangNhap.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iService/KhuyenMaiService.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/form/ThieuQuyenHanChuaDangNhapJP.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/domainModel/HoaDon.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/form/NhanVienJP.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/component/Menu.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/domainModel/KhachHang.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/form/KhachHangJP.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/form/BanHangJP.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/util/DBConnection.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/form_nhanVien/ThieuQuyenHanNVJP.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/form/SanPhamJP.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iRepository/KhuyenMaiRepository.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/form/KhuyenMaiJP.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iRepository/NhanVienRepository.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/main/MainQuanLy.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iService/NhanVienService.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iRepository/DangNhapRepository.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/form/DangNhapJP.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/main/Main.java</file>
+            <file>file:/C:/Users/PC/Documents/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iRepository/HoaDonRepository.java</file>
         </group>
     </open-files>
 </project-private>

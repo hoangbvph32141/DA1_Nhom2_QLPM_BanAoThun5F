@@ -5,9 +5,15 @@
  */
 package com.raven.main;
 
+import com.n2.domainModel.NhanVien;
 import com.raven.event.EventMenuSelected;
-import com.raven.form.DangNhapJP;
-import com.raven.form.ThieuQuyenHanChuaDangNhapJP;
+import com.raven.form.BanHangJP;
+import com.raven.form.DangXuatJP;
+import com.raven.form.HoaDonJP;
+import com.raven.form.KhachHangJP;
+import com.raven.form.SanPhamJP;
+import com.raven.form_nhanVien.KhuyenMaiNVJP;
+import com.raven.form_nhanVien.ThieuQuyenHanNVJP;
 import java.awt.Color;
 import javax.swing.JComponent;
 
@@ -15,64 +21,58 @@ import javax.swing.JComponent;
  *
  * @author RAVEN
  */
-public class Main extends javax.swing.JFrame {
+public class MainNhanVien extends javax.swing.JFrame {
 
     /**
      * Creates new form Main
      */
-    private DangNhapJP dangNhap;
-    private ThieuQuyenHanChuaDangNhapJP thieuQuyenHanChuaDangNhapJP;
-    public Main() {
+    private BanHangJP banHang;
+    private HoaDonJP hoadon;
+    private KhuyenMaiNVJP khuyenMaiNV;
+    private KhachHangJP khachHang;
+    private DangXuatJP dangXuat;
+    private ThieuQuyenHanNVJP thieuQuyenHanNV; 
+    private SanPhamJP sanPhamJP;
+    private NhanVien currentNhanVien;
+    public MainNhanVien(){
         initComponents();
+        
         setBackground(new Color(0, 0, 0, 0));
-        thieuQuyenHanChuaDangNhapJP = new ThieuQuyenHanChuaDangNhapJP();
-        dangNhap = new DangNhapJP();
-        menu.initMoving(Main.this);
+        banHang = new BanHangJP();
+        hoadon = new HoaDonJP();
+        khuyenMaiNV = new KhuyenMaiNVJP();
+        khachHang = new KhachHangJP();
+        dangXuat = new DangXuatJP();
+        sanPhamJP = new SanPhamJP();
+        thieuQuyenHanNV = new ThieuQuyenHanNVJP();
+        
+        menu.initMoving(MainNhanVien.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
             @Override
             public void selected(int index) {
                 System.out.println("index: " + index);
-//                if (index == 1) {
-//                    setForm(banHang);
-//                } else if (index == 3) {
-//                    setForm(hoadon);
-//                } else if (index == 5) {
-//                    setForm(sanPham);
-//                } else if (index == 7) {
-//                    setForm(khuyenMai);
-//                } else if (index == 9) {
-//                    setForm(khachHang);
-//                } else if (index == 11) {
-//                    setForm(nhanVien);
-//                } else if (index == 13) {
-//                    setForm(thongKe);
-//                } else if (index == 15) {
-//                    setForm(dangXuat);
-//                }
                 if (index == 1) {
-                    setForm(thieuQuyenHanChuaDangNhapJP);
+                    setForm(banHang);
                 } else if (index == 3) {
-                    setForm(thieuQuyenHanChuaDangNhapJP);
+                    setForm(hoadon);
                 } else if (index == 5) {
-                    setForm(thieuQuyenHanChuaDangNhapJP);
+                    setForm(sanPhamJP);
                 } else if (index == 7) {
-                    setForm(thieuQuyenHanChuaDangNhapJP);
+                    setForm(khuyenMaiNV);
                 } else if (index == 9) {
-                    setForm(thieuQuyenHanChuaDangNhapJP);
+                    setForm(khachHang);
                 } else if (index == 11) {
-                    setForm(thieuQuyenHanChuaDangNhapJP);
+                    setForm(thieuQuyenHanNV);
                 } else if (index == 13) {
-                    setForm(thieuQuyenHanChuaDangNhapJP);
-                } else if (index == 15) {
-                    setForm(thieuQuyenHanChuaDangNhapJP);
-                } else if (index == 19) {
-                    setForm(dangNhap);
+                    setForm(thieuQuyenHanNV);
+                } else if (index == 16) {
+                    setForm(dangXuat);
                 }
                 System.out.println(index);
             }
         });
         //  set when system open start with home form
-        setForm(new DangNhapJP());
+        setForm(new BanHangJP());
     }
 
     private void setForm(JComponent com) {
@@ -159,26 +159,14 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -187,7 +175,7 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                new MainNhanVien().setVisible(true);
 
             }
         });

@@ -4,9 +4,7 @@
  */
 package com.n2.iRepository;
 
-import com.n2.domainModel.HoaDon;
 import com.n2.domainModel.KhuyenMai;
-import com.n2.domainModel.SanPham;
 import com.n2.util.DBConnection;
 import com.n2.util.JdbcHelper;
 import java.sql.Connection;
@@ -31,7 +29,7 @@ public class KhuyenMaiRepository {
         String sql_getListKhuyenMai = "SELECT ID, MAKM, TENKM, MUCGIAMGIA, DIEUKIEN, THOIGIANBATDAU, THOIGIANKETTHUC, TRANGTHAIKM, SOLUONG\n"
                 + "FROM KHUYENMAI";
 
-        ArrayList<KhuyenMai> listKhuyenMai = new ArrayList<>(); // Tôi quen gọi cả thằng package ra, b có thể chỉ cần gọi tên nó là Class: Animal
+        ArrayList<KhuyenMai> listKhuyenMai = new ArrayList<>();
 
         try (Connection connection = JdbcHelper.openDbConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql_getListKhuyenMai)) {
 
@@ -60,20 +58,22 @@ public class KhuyenMaiRepository {
 
     public ArrayList<KhuyenMai> getListSP() {
         String sql_getListSP = "SELECT \n"
-                + "	KM.ID,\n"
-                + "	HD.IDKM,\n"
-                + "	HD.MAHD,\n"
-                + "    KM.TENKM, \n"
-                + "    KM.MUCGIAMGIA, \n"
-                + "    KM.DIEUKIEN, \n"
-                + "    HD.TONGTIEN,\n"
-                + "    HD.NGAYTHANHTOAN\n"
+                + "    KM.ID AS KhuyenMaiID,\n"
+                + "    HD.IDKM AS HoaDonIDKM,\n"
+                + "    HD.MAHD AS MaHoaDon,\n"
+                + "    KM.TENKM AS TenKhuyenMai,\n"
+                + "    KM.MUCGIAMGIA AS MucGiamGia,\n"
+                + "    KM.DIEUKIEN AS DieuKien,\n"
+                + "    HD.TONGTIEN AS TongTienHoaDon,\n"
+                + "    HD.NGAYTHANHTOAN AS NgayThanhToan\n"
                 + "FROM \n"
                 + "    HOADON HD\n"
                 + "JOIN \n"
-                + "    KHUYENMAI KM ON HD.IDKM = KM.ID";
+                + "    KHUYENMAI KM ON HD.IDKM = KM.ID\n"
+                + "WHERE \n"
+                + "    HD.IDKM IS NOT NULL";
 
-        ArrayList<KhuyenMai> listSP = new ArrayList<>(); // Tôi quen gọi cả thằng package ra, b có thể chỉ cần gọi tên nó là Class: Animal
+        ArrayList<KhuyenMai> listSP = new ArrayList<>();
 
         try (Connection connection = JdbcHelper.openDbConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql_getListSP)) {
 
@@ -149,6 +149,130 @@ public class KhuyenMaiRepository {
         } catch (SQLException e) {
             e.printStackTrace(); // Ghi lại lỗi
             return 0;
+        }
+    }
+
+    public int doiTTKM(KhuyenMai khuyenMai) {
+        String sql_doiTTKM = "UPDATE KHUYENMAI\n"
+                + "SET TRANGTHAIKM = ?\n"
+                + "WHERE ID = ?";
+        try {
+            preparedStatement = connection.prepareStatement(sql_doiTTKM);
+            preparedStatement.setInt(1, khuyenMai.getTrangThaiKM());
+            preparedStatement.setInt(2, khuyenMai.getIdKM());
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(); // Ghi lại lỗi
+            return 0;
+        }
+    }
+
+//    public ArrayList<KhuyenMai> searchKM(String searchTenKM) {
+//        ArrayList<KhuyenMai> listSearchKM = new ArrayList<>();
+//        
+//        String sql_searchKM = "select * from hoa_don where tenKM='" + searchTenKM + "'";
+//        try (Connection connection = JdbcHelper.openDbConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql_searchKM)) {
+//
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//            while (resultSet.next()) {
+//                int idKM = resultSet.getInt(1);
+//                String maKM = resultSet.getString(2);
+//                String tenKM = resultSet.getString(3);
+//                float mucGiamGia = resultSet.getFloat(4);
+//                float dieuKien = resultSet.getFloat(5);
+//                Date thoiGianBatDau = resultSet.getDate(6);
+//                Date thoiGianKetThuc = resultSet.getDate(7);
+//                int trangThaiKM = resultSet.getInt(8);
+//                int soLuong = resultSet.getInt(9);
+//
+//                KhuyenMai khuyenMai = new KhuyenMai(idKM, maKM, tenKM, mucGiamGia, dieuKien, thoiGianBatDau, thoiGianKetThuc, trangThaiKM, soLuong, dieuKien, thoiGianBatDau, idKM, tenKM);
+//
+//                listSearchKM.add(khuyenMai);
+//            }
+//            return listSearchKM;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+    public ArrayList<KhuyenMai> searchKM(String tenKM) {
+        ArrayList<KhuyenMai> listSearchKM = new ArrayList<>();
+
+        String sql_searchKM = "SELECT ID, MAKM, TENKM, MUCGIAMGIA, DIEUKIEN, THOIGIANBATDAU, THOIGIANKETTHUC, TRANGTHAIKM, SOLUONG\n"
+                + "FROM KHUYENMAI \n"
+                + "WHERE TENKM LIKE ?";
+        try (Connection connection = JdbcHelper.openDbConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql_searchKM)) {
+
+            preparedStatement.setString(1, "%" + tenKM + "%");
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int idKM = resultSet.getInt("ID");
+                String maKM = resultSet.getString("MAKM");
+                tenKM = resultSet.getString("TENKM");
+                float mucGiamGia = resultSet.getFloat("MUCGIAMGIA");
+                float dieuKien = resultSet.getFloat("DIEUKIEN");
+                Date thoiGianBatDau = resultSet.getDate("THOIGIANBATDAU");
+                Date thoiGianKetThuc = resultSet.getDate("THOIGIANKETTHUC");
+                int trangThaiKM = resultSet.getInt("TRANGTHAIKM");
+                int soLuong = resultSet.getInt("SOLUONG");
+
+                KhuyenMai khuyenMai = new KhuyenMai(idKM, maKM, tenKM, mucGiamGia, dieuKien, thoiGianBatDau, thoiGianKetThuc, trangThaiKM, soLuong, dieuKien, thoiGianBatDau, idKM, tenKM);
+                listSearchKM.add(khuyenMai);
+            }
+            return listSearchKM;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public ArrayList<KhuyenMai> searchKMDaApDung(String tenKM) {
+        ArrayList<KhuyenMai> listSearchKM = new ArrayList<>();
+
+        String sql_searchKMDaApDung = "SELECT\n"
+                + "KM.ID AS KhuyenMaiID,\n"
+                + "HD.IDKM AS HoaDonIDKM,\n"
+                + "HD.MAHD AS MaHoaDon,\n"
+                + "KM.TENKM AS TenKhuyenMai,\n"
+                + "KM.MUCGIAMGIA AS MucGiamGia,\n"
+                + "KM.DIEUKIEN AS DieuKien,\n"
+                + "HD.TONGTIEN AS TongTienHoaDon,\n"
+                + "HD.NGAYTHANHTOAN AS NgayThanhToan\n"
+                + "FROM \n"
+                + "HOADON HD\n"
+                + "JOIN\n"
+                + "KHUYENMAI KM ON HD.IDKM = KM.ID\n"
+                + "WHERE \n"
+                + "HD.IDKM IS NOT NULL\n"
+                + "AND KM.TENKM LIKE ?";
+
+        try (Connection connection = JdbcHelper.openDbConnection(); PreparedStatement preparedStatement = connection.prepareStatement(sql_searchKMDaApDung)) {
+
+            // Gán giá trị tham số cho câu truy vấn
+            preparedStatement.setString(1, "%" + tenKM + "%");
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Lấy dữ liệu từ ResultSet và thêm vào danh sách
+            while (resultSet.next()) {
+                int id = resultSet.getInt("KM.ID");
+                int idKM = resultSet.getInt("HD.IDKM");
+                String tenHD = resultSet.getString("HD.MAHD");
+                tenKM = resultSet.getString("KM.TENKM");
+                float mucGiamGia = resultSet.getFloat("KM.MUCGIAMGIA");
+                float dieuKien = resultSet.getFloat("KM.DIEUKIEN");
+                float tongTien = resultSet.getFloat("HD.TONGTIEN");
+                Date ngayThanhToan = resultSet.getDate("HD.NGAYTHANHTOAN");
+
+                KhuyenMai khuyenMai = new KhuyenMai(idKM, tenKM, tenKM, mucGiamGia, dieuKien, ngayThanhToan, ngayThanhToan, idKM, idKM, tongTien, ngayThanhToan, id, tenHD);
+                listSearchKM.add(khuyenMai);
+            }
+
+            return listSearchKM;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

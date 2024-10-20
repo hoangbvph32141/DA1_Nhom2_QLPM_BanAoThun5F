@@ -35,4 +35,12 @@ public class KhuyenMaiService {
     public ArrayList<KhuyenMai> getListSP() {
         return khuyenMaiRepository.getListSP();
     }
+    
+    public int doiTTKM(KhuyenMai khuyenMai) {
+        return khuyenMaiRepository.doiTTKM(khuyenMai);
+    }
+    
+    public ArrayList<KhuyenMai> searchKM(String tenKM) {
+        return khuyenMaiRepository.searchKM(tenKM);
+    }
 }

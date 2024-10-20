@@ -532,7 +532,15 @@ String formattedDate = sdf.format(now);
             new String [] {
                 "STT", "Mã hóa đơn", "Tên nhân viên", "Ngày tạo", "Trạng thái"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblHoaDonCho.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblHoaDonChoMouseClicked(evt);
@@ -554,7 +562,15 @@ String formattedDate = sdf.format(now);
             new String [] {
                 "STT", "Mã sản phẩm", "Tên sản phẩm", "SL còn lại", "Giá", "Kích cỡ", "Chất liệu", "Màu sắc", "Trạng thái"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tblSanPham);
 
         tblGioHang.setBackground(new java.awt.Color(176, 212, 184));
@@ -572,7 +588,15 @@ String formattedDate = sdf.format(now);
             new String [] {
                 "STT", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá", "Kích cỡ", "Chất liệu"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(tblGioHang);
 
         jPanel1.setBackground(new java.awt.Color(176, 212, 184));
