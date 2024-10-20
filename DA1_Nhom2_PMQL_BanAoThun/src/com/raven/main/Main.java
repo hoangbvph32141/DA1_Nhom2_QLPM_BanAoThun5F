@@ -14,6 +14,9 @@ import com.raven.form.KhuyenMaiJP;
 import com.raven.form.NhanVienJP;
 import com.raven.form.ThongKeJP;
 import java.awt.Color;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 
 /**
@@ -33,7 +36,7 @@ public class Main extends javax.swing.JFrame {
     private NhanVienJP nhanVien;
     private ThongKeJP thongKe;
 
-    public Main() {
+    public Main() throws ParseException {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         banHang = new BanHangJP();
@@ -169,7 +172,11 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                try {
+                    new Main().setVisible(true);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             }
         });
