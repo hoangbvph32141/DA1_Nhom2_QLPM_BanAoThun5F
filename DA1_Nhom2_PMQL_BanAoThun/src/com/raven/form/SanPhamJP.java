@@ -509,6 +509,11 @@ public class SanPhamJP extends javax.swing.JPanel {
         btnXoaSPCT.setText("Xoá");
 
         btnResetSPCT.setText("Reset");
+        btnResetSPCT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetSPCTActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Màu Sắc");
 
@@ -1221,6 +1226,15 @@ public class SanPhamJP extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btnSuaSPCTActionPerformed
+
+    private void btnResetSPCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetSPCTActionPerformed
+        // TODO add your handling code here:
+        txtMaSPCT.setText("");
+        txtNguoiTao.setText("");
+        txtSoLuongSPCT.setText("");
+        txtDonGiaSPCT.setText("");
+        txtMoTaSPCT.setText("");
+    }//GEN-LAST:event_btnResetSPCTActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
