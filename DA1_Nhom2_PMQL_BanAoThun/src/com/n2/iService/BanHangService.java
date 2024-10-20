@@ -115,4 +115,9 @@ public class BanHangService implements iBanHangService {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+      public int findSLbyIdSPCT(int idSPCT) throws SQLException {
+          return banHangRepository.findSLbyIdSPCT(idSPCT);
+      }
+    
+    
 }

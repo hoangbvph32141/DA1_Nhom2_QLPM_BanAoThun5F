@@ -239,6 +239,8 @@ public class BanHangJP extends javax.swing.JPanel {
         Integer row = tblGioHang.getSelectedRow();
         String maHD = String.valueOf(tblHoaDonCho.getValueAt(rowHD, 1).toString());
         String maSPCT = String.valueOf(tblGioHang.getValueAt(row, 1).toString());
+        String slTrongGioHang = String.valueOf(tblGioHang.getValueAt(row, 3).toString());
+
         int idHD = banHangService.getIdHDByMaHD(maHD);
         int idSPCT = banHangService.getIdSPCTByMaSPCT(maSPCT);
         System.out.println(idHD);
@@ -246,6 +248,15 @@ public class BanHangJP extends javax.swing.JPanel {
         HoaDonChiTiet hdct = new HoaDonChiTiet();
         hdct.setIdHD(idHD);
         hdct.setIdSPCT(idSPCT);
+       
+        
+        int soluong = banHangService.findSLbyIdSPCT(idSPCT);
+        int soLuongDanTrongGioHang = Integer.parseInt(slTrongGioHang);
+        int soluongtong = soluong + soLuongDanTrongGioHang;
+        SanPhamChiTiet spct = new SanPhamChiTiet();
+        spct.setID(idSPCT);
+        spct.setSoLuongTon(soluongtong);
+        banHangService.updateSPCT(spct);
         banHangService.deleteSPCT(hdct);
     }
 

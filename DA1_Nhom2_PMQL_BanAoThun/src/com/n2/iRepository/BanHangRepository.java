@@ -247,7 +247,17 @@ public class BanHangRepository implements iBanHangRepository {
 
         return "Thêm hóa đơn thất bại";
     }
+    public int findSLbyIdSPCT(int idSPCT) throws SQLException {
+        String sql = "select SOLUONGTON from SANPHAMCHITIET where id = ?";
+        int sl = 0;
+        ResultSet rs = DBConnection.getDataFromQuery(sql, idSPCT);
 
+        if (rs.next()) {
+            sl = rs.getInt(1);
+        }
+
+        return sl;
+    }
     public String deleteSPCT(HoaDonChiTiet hdct) {
         String sql = "delete from HOADONCT where IDHD = ? and IDSPCT = ?";
         try (Connection con = JdbcHelper.openDbConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
