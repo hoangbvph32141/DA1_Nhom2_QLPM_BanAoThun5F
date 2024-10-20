@@ -3,15 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/viewModel/HoaDonViewModel.java</file>
-            <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iRepository/BanHangRepository.java</file>
-            <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iRepository/NhanVienRepository.java</file>
-            <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iRepository/SanPhamRepository.java</file>
-            <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/viewModel/SanPhamViewModel.java</file>
-            <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iService/SanPhamService.java</file>
-            <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/viewModel/HoaDonChiTietViewModel.java</file>
-            <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/form/BanHangJP.java</file>
-            <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_1/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/viewModel/SanPhamChiTietViewModel.java</file>
+            <file>file:/F:/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/viewModel/SanPhamCTViewModel.java</file>
+            <file>file:/F:/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iService/SanPhamService.java</file>
+            <file>file:/F:/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/viewModel/SanPhamViewModel.java</file>
+            <file>file:/F:/DA1_Nhom2_QLPM_BanAoThun5F/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/form/SanPhamJP.java</file>
         </group>
     </open-files>
 </project-private>

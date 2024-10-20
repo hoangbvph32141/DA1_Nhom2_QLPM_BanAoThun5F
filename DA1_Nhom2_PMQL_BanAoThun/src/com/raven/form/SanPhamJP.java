@@ -449,7 +449,7 @@ public class SanPhamJP extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "Mã Sản Phẩm", "Tên Sản Phẩm", "Trạng Thái"
+                "ID", "Mã SP", "Tên Sản Phẩm", "Trạng Thái"
             }
         ));
         tblSP.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -459,10 +459,10 @@ public class SanPhamJP extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblSP);
         if (tblSP.getColumnModel().getColumnCount() > 0) {
-            tblSP.getColumnModel().getColumn(0).setPreferredWidth(5);
-            tblSP.getColumnModel().getColumn(1).setPreferredWidth(60);
-            tblSP.getColumnModel().getColumn(2).setPreferredWidth(240);
-            tblSP.getColumnModel().getColumn(3).setPreferredWidth(60);
+            tblSP.getColumnModel().getColumn(0).setPreferredWidth(35);
+            tblSP.getColumnModel().getColumn(1).setPreferredWidth(65);
+            tblSP.getColumnModel().getColumn(2).setPreferredWidth(200);
+            tblSP.getColumnModel().getColumn(3).setPreferredWidth(70);
         }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -500,6 +500,11 @@ public class SanPhamJP extends javax.swing.JPanel {
         });
 
         btnSuaSPCT.setText("Sửa");
+        btnSuaSPCT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaSPCTActionPerformed(evt);
+            }
+        });
 
         btnXoaSPCT.setText("Xoá");
 
@@ -650,13 +655,13 @@ public class SanPhamJP extends javax.swing.JPanel {
 
         tblSPCT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"
+                "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"
             }
         ));
         tblSPCT.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -911,7 +916,6 @@ public class SanPhamJP extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSPMouseClicked
-
         int row = this.tblSP.getSelectedRow();
         if (row == -1) {
             return;
@@ -963,7 +967,29 @@ public class SanPhamJP extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaSPActionPerformed
 
     private void tblSPCTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSPCTMouseClicked
+        int row = this.tblSPCT.getSelectedRow();
+        if (row == -1) {
+            return;
+        }
+        int idSPCT = -1;
+        idSPCT = (int) tblSPCT.getValueAt(row, 0);
 
+        SanPhamViewModel m = this.sm.getAllSP().get(row);
+        SanPhamCTViewModel ms = this.sm.getAllSPCT().get(row);
+        this.txtIDSP.setText(String.valueOf(idSPCT));
+
+        this.txtMaSPCT.setText(ms.getMaSPCT());
+        this.txtNguoiTao.setText(ms.getNguoiTao());
+        this.txtSoLuongSPCT.setText(String.valueOf(ms.getSoLuongTon()));
+        this.txtDonGiaSPCT.setText(String.valueOf(ms.getDonGia()));
+        this.txtMoTaSPCT.setText(ms.getMoTa());
+
+        int trangThaiSPCT = this.cboTrangThaiSP.getSelectedIndex();
+        if (trangThaiSPCT == 1) {
+            this.cboTrangThaiSP.setSelectedIndex(1);
+        } else {
+            this.cboTrangThaiSP.setSelectedIndex(2);
+        }
     }//GEN-LAST:event_tblSPCTMouseClicked
 
     private void rboMauSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rboMauSacActionPerformed
@@ -1180,6 +1206,21 @@ public class SanPhamJP extends javax.swing.JPanel {
         txtMaSP.setText("");
         txtTenSP.setText("");
     }//GEN-LAST:event_btnResetSPActionPerformed
+
+    private void btnSuaSPCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaSPCTActionPerformed
+        // TODO add your handling code here:
+        int i = tblSPCT.getSelectedRow();
+        // b2: đọc dl đã sửa từ form
+        if (this.readFormSPCT() != null) {
+            int id = Integer.parseInt(tblSP.getValueAt(i, 0).toString());
+            if (sm.suaSPCT(id, this.readFormSPCT()) > 0) {
+                JOptionPane.showMessageDialog(this, "Sửa Thành Công");
+                this.fillTableSPCT(sm.getAllSPCT());
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa thất bại");
+            }
+        }
+    }//GEN-LAST:event_btnSuaSPCTActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

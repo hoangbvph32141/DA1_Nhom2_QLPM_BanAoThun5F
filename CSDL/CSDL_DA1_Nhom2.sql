@@ -251,16 +251,16 @@ INSERT INTO SANPHAM (MASP,TENSP,TRANGTHAISP) VALUES
 ('SP03', N'Áo thun dài tay', 1),
 ('SP04', N'Áo thun thể thao', 1),
 ('SP05', N'Áo thun in logo hoặc thương hiệu', 1),
-('SP06', N'Áo thun cổ tròn nam', 1),
-('SP07', N'Áo thun polo nam', 1),
-('SP08', N'Áo thun tay lỡ nam', 1),
-('SP09', N'Áo thun in hình nam', 1),
-('SP10', N'Áo thun thể thao nam', 1),
-('SP11', N'Áo thun oversize nam', 1),
-('SP12', N'Áo thun kẻ sọc nam', 1),
-('SP13', N'Áo thun len nam', 1),
-('SP14', N'Áo thun mùa hè nam', 1),
-('SP15', N'Áo thun in slogan nam', 1);
+('SP06', N'Áo thun cổ Lọ', 1),
+('SP07', N'Áo thun polo ccs', 1),
+('SP08', N'Áo thun tay lỡ', 1),
+('SP09', N'Áo thun in hình Taylor Swift', 1),
+('SP10', N'Áo thun thể dục', 1),
+('SP11', N'Áo thun oversize', 1),
+('SP12', N'Áo thun kẻ sọc', 1),
+('SP13', N'Áo thun len', 1),
+('SP14', N'Áo thun mùa nắng', 1),
+('SP15', N'Áo thun in slogan', 1);
 GO
 
 -- INSERT INTO SANPHAMCHITIET
@@ -426,4 +426,3 @@ SELECT*FROM KHUYENMAI
 SELECT*FROM KHUYENMAICHITIET
 SELECT*FROM HOADON
 SELECT*FROM HOADONCT
-

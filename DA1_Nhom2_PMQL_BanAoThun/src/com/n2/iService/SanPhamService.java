@@ -84,7 +84,7 @@ public class SanPhamService implements iSanPhamService {
         }
     }
 
-    //
+    // Sản Phẩm Chi Tiết
     public ArrayList<SanPhamCTViewModel> getAllSPCT() {
         sql = "SELECT IDMS,IDCL,IDTH,IDKC,IDSP,MASPCT,NGUOITAO,SOLUONGTON,MOTA,TRANGTHAISPCT,DONGIA FROM SANPHAMCHITIET";
 
@@ -136,6 +136,29 @@ public class SanPhamService implements iSanPhamService {
         } catch (Exception e) {
             // thêm thất bại
             e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int suaSPCT(int id, SanPhamCTViewModel m) {
+        sql = "update SANPHAMCHITIET set IDMS=?,IDCL=?,IDTH=?,IDKC=?,IDSP=?,MASPCT=?,NGUOITAO=?,SOLUONGTON=?,MOTA=?,TRANGTHAISPCT=?,DONGIA=? where id=?";
+
+        try {
+            pr = con.prepareStatement(sql);
+            pr.setObject(1, m.getIdMS());
+            pr.setObject(2, m.getIdCL());
+            pr.setObject(3, m.getIdTH());
+            pr.setObject(4, m.getIdKC());
+            pr.setObject(5, m.getIdSP());
+            pr.setObject(6, m.getMaSPCT());
+            pr.setObject(7, m.getNguoiTao());
+            pr.setObject(8, m.getSoLuongTon());
+            pr.setObject(9, m.getMoTa());
+            pr.setObject(10, m.getTrangThaiSPCT());
+            pr.setObject(11, m.getDonGia());
+            pr.setObject(12, id);
+            return pr.executeUpdate();
+        } catch (Exception e) { // không sửa được
             return 0;
         }
     }
