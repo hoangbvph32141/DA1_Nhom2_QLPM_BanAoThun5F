@@ -376,6 +376,11 @@ public class SanPhamJP extends javax.swing.JPanel {
         });
 
         btnXoaSP.setText("Xoá");
+        btnXoaSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaSPActionPerformed(evt);
+            }
+        });
 
         jLabel17.setText("ID Sản Phẩm");
 
@@ -507,6 +512,11 @@ public class SanPhamJP extends javax.swing.JPanel {
         });
 
         btnXoaSPCT.setText("Xoá");
+        btnXoaSPCT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaSPCTActionPerformed(evt);
+            }
+        });
 
         btnResetSPCT.setText("Reset");
         btnResetSPCT.addActionListener(new java.awt.event.ActionListener() {
@@ -1235,6 +1245,42 @@ public class SanPhamJP extends javax.swing.JPanel {
         txtDonGiaSPCT.setText("");
         txtMoTaSPCT.setText("");
     }//GEN-LAST:event_btnResetSPCTActionPerformed
+
+    private void btnXoaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaSPActionPerformed
+        // TODO add your handling code here:
+        if (this.readFormSP() != null) {
+            int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn Xoa không ?");
+            if (chon == 0) {
+                int select = tblSP.getSelectedRow();
+                if (select == -1) {
+                    JOptionPane.showMessageDialog(this, "bạn chưa chọn");
+                }
+                String idXoaSP = this.tblSP.getValueAt(select, 0).toString();
+                int id = Integer.parseInt(idXoaSP);
+                this.sm.xoaSP(id);
+                this.fillTableSP(sm.getAllSP());
+                JOptionPane.showMessageDialog(this, "Xoa thanh cong");
+            }
+        }
+    }//GEN-LAST:event_btnXoaSPActionPerformed
+
+    private void btnXoaSPCTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaSPCTActionPerformed
+        // TODO add your handling code here:
+        if (this.readFormSPCT() != null) {
+            int chon = JOptionPane.showConfirmDialog(this, "Bạn có muốn Xoa không ?");
+            if (chon == 0) {
+                int select = tblSPCT.getSelectedRow();
+                if (select == -1) {
+                    JOptionPane.showMessageDialog(this, "bạn chưa chọn");
+                }
+                String idXoaSPCT = this.tblSPCT.getValueAt(select, 0).toString();
+                int id = Integer.parseInt(idXoaSPCT);
+                this.sm.xoaSPCT(id);
+                this.fillTableSPCT(sm.getAllSPCT());
+                JOptionPane.showMessageDialog(this, "Xoa thanh cong");
+            }
+        }
+    }//GEN-LAST:event_btnXoaSPCTActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
