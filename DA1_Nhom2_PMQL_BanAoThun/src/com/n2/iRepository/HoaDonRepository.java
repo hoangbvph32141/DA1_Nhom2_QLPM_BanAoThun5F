@@ -77,6 +77,7 @@ public List<HoaDonViewModel> getHoaDonsByDateRangeAndTrangThai(String startDateS
                 hd.setTongTien(rs.getFloat("TongTien"));
                 hd.setDonGiaSauGiam(rs.getFloat("DonGiaSauGiam"));
                 listHD.add(hd);
+           
             }
         }
     }

@@ -2,6 +2,7 @@ package com.n2.iRepository;
 
 import com.n2.domainModel.HoaDon;
 import com.n2.domainModel.HoaDonChiTiet;
+import com.n2.domainModel.KhachHang;
 import com.n2.domainModel.KhuyenMai;
 import com.n2.domainModel.SanPham;
 import com.n2.domainModel.SanPhamChiTiet;
@@ -126,7 +127,7 @@ public class BanHangRepository implements iBanHangRepository {
     public List<HoaDonViewModel> getAllHDD() {
         List<HoaDonViewModel> listHD = new ArrayList<>();
         String sql = "SELECT        dbo.HOADON.ID,  dbo.HOADON.MAHD,   dbo.NHANVIEN.TENNV, dbo.HOADON.NGAYTAO,dbo.HOADON.NGAYTHANHTOAN,  dbo.HOADON.TRANGTHAIHD \n"
-                + "FROM            dbo.HOADON INNER JOIN\n"
+                + "FROM            dbo.HOADON RIGHT JOIN\n"
                 + "                         dbo.NHANVIEN ON dbo.HOADON.IDNV = dbo.NHANVIEN.ID\n"
                 + "						 where TRANGTHAIHD = 0"
                 + "order by dbo.HOADON.MaHD desc";
@@ -247,6 +248,7 @@ public class BanHangRepository implements iBanHangRepository {
 
         return "Thêm hóa đơn thất bại";
     }
+
     public int findSLbyIdSPCT(int idSPCT) throws SQLException {
         String sql = "select SOLUONGTON from SANPHAMCHITIET where id = ?";
         int sl = 0;
@@ -258,6 +260,36 @@ public class BanHangRepository implements iBanHangRepository {
 
         return sl;
     }
+//    public List<KhachHang> getTENKHBYSDT(String sdt) {
+//        List<KhachHang> list = new ArrayList<>();
+//        String sql = "select TENKH from KHACHHANG where SDT = ?";
+//        try {
+//            JdbcHelper.query(sql, sdt);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(BanHangRepository.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return list;
+//    
+//    }
+
+    public KhachHang getTENKHBYSDT(String sdt) {
+        KhachHang kh = null; // Khởi tạo là null
+        String sql = "select TENKH from KHACHHANG where SDT = ?";
+        try {
+            ResultSet rs = DBConnection.getDataFromQuery(sql, sdt);
+            if (rs.next()) { // Kiểm tra xem có kết quả hay không
+                kh = new KhachHang(); // Khởi tạo đối tượng chỉ khi có dữ liệu
+                kh.setTenKH(rs.getString(1));
+            } else {
+                // Xử lý khi không có kết quả (nếu cần)
+                System.out.println("Không tìm thấy tenKH với sdt: " + sdt);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return kh;
+    }
+
     public String deleteSPCT(HoaDonChiTiet hdct) {
         String sql = "delete from HOADONCT where IDHD = ? and IDSPCT = ?";
         try (Connection con = JdbcHelper.openDbConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
@@ -320,7 +352,7 @@ public class BanHangRepository implements iBanHangRepository {
     }
 
     public String thanhToan(HoaDon hd) {
-        
+
         String sql = "update HoaDon set TRANGTHAIHD = 1, IDKM = ?,TONGTIEN = ?, NGAYTHANHTOAN = ?, DONGIASAUGIAM = ? where id = ?";
         try (Connection con = JdbcHelper.openDbConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -339,6 +371,7 @@ public class BanHangRepository implements iBanHangRepository {
 
         return "thất bại";
     }
+
     public int getIdKMbyMaKM(String maKM) throws SQLException {
         String sql = "select ID from KHUYENMAI where maKM = ?";
         int idSPCT = 0;
@@ -350,24 +383,25 @@ public class BanHangRepository implements iBanHangRepository {
 
         return idSPCT;
     }
+
     public KhuyenMai getKhuyenMaiByMaKH(String maKM) {
-    KhuyenMai km = null; // Khởi tạo là null
-    String sql = "SELECT TENKM, MUCGIAMGIA FROM KHUYENMAI WHERE MAKM = ?";
-    try {
-        ResultSet rs = DBConnection.getDataFromQuery(sql, maKM);
-        if (rs.next()) { // Kiểm tra xem có kết quả hay không
-            km = new KhuyenMai(); // Khởi tạo đối tượng chỉ khi có dữ liệu
-            km.setTenKM(rs.getString(1));
-            km.setMucGiamGia(rs.getFloat(2));
-        } else {
-            // Xử lý khi không có kết quả (nếu cần)
-            System.out.println("Không tìm thấy khuyến mãi với mã: " + maKM);
+        KhuyenMai km = null; // Khởi tạo là null
+        String sql = "SELECT TENKM, MUCGIAMGIA FROM KHUYENMAI WHERE MAKM = ?";
+        try {
+            ResultSet rs = DBConnection.getDataFromQuery(sql, maKM);
+            if (rs.next()) { // Kiểm tra xem có kết quả hay không
+                km = new KhuyenMai(); // Khởi tạo đối tượng chỉ khi có dữ liệu
+                km.setTenKM(rs.getString(1));
+                km.setMucGiamGia(rs.getFloat(2));
+            } else {
+                // Xử lý khi không có kết quả (nếu cần)
+                System.out.println("Không tìm thấy khuyến mãi với mã: " + maKM);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-    } catch (SQLException ex) {
-        ex.printStackTrace();
+        return km; // Trả về null nếu không tìm thấy
     }
-    return km; // Trả về null nếu không tìm thấy
-}
 
     @Override
     public List<HoaDonChiTiet> getHDCT(String maHDCT) {

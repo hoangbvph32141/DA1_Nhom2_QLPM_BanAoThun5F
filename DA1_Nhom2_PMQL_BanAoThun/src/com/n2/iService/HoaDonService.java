@@ -44,4 +44,5 @@ public class HoaDonService {
           public List<HoaDonViewModel> getHoaDonsByDateRangeAndTrangThai(String startDate, String endDate, int trangThai, String maHD) throws SQLException, ParseException{
               return hoaDonRepository.getHoaDonsByDateRangeAndTrangThai(startDate, endDate, trangThai, maHD);
           }
+          
 }

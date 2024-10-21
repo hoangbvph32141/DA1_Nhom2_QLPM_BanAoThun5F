@@ -30,6 +30,8 @@ public class HoaDonJP extends javax.swing.JPanel {
     private DefaultTableModel model = new DefaultTableModel();
     private DefaultTableModel modelHDCT = new DefaultTableModel();
     private List<HoaDonChiTietViewModel> listHDCT = new ArrayList<>();
+    private List<HoaDonViewModel> listHD = new ArrayList<>();
+    private DefaultTableModel model1 = new DefaultTableModel();
     /**
      * Creates new form Form_1
      */
@@ -121,7 +123,7 @@ public class HoaDonJP extends javax.swing.JPanel {
     Date ngayBatDauDate = this.ngayBatDau.getDate(); // Giả sử đây là một JDatePicker hoặc tương tự
     Date ngayKetThucDate = this.ngayKetThuc.getDate();
 
-    SimpleDateFormat targetFormat = new SimpleDateFormat("dd-MM-yyyy");
+    SimpleDateFormat targetFormat = new SimpleDateFormat("YYYY-dd-MM");
 
     try {
         String maHD = null;
@@ -147,23 +149,28 @@ public class HoaDonJP extends javax.swing.JPanel {
 
         System.out.println("Start Date: " + formattedStartDate); // Kết quả: 01-10-2024
         System.out.println("End Date: " + formattedEndDate);
+        
 
         // Sử dụng ngày đã định dạng trong truy vấn
+        tblHoaDonCho.clearSelection();
         List<HoaDonViewModel> list = hoaDonService.getHoaDonsByDateRangeAndTrangThai(formattedStartDate, formattedEndDate, trangThai, maHD);
-
-        DefaultTableModel model = (DefaultTableModel) tblHoaDonCho.getModel();
-        model.setRowCount(0);
+        System.out.println(list);
+        model1 = (DefaultTableModel) tblHoaDonCho.getModel();
+        model1.setRowCount(0);
 
         int index = 1;
         for (HoaDonViewModel x : list) {
-            model.addRow(new Object[]{
+            model1.addRow(new Object[]{
                 index, x.getMaHD(), x.getTenNV(), x.getNgayTao(), x.getTongTien(), x.getDonGiaSauGiam(), x.tt(x.getTrangThai())
             });
+            System.out.println("dang ngu");
             index++;
         }
+        System.out.println("dang ngu2");
     } catch (Exception e) {
         e.printStackTrace(); // Xử lý ngoại lệ ở đây
     }
+    
 
     }
 
@@ -197,6 +204,7 @@ public class HoaDonJP extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHoaDonCho = new javax.swing.JTable();
@@ -286,6 +294,7 @@ public class HoaDonJP extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel7.setText("Ngày kết thúc");
 
+        buttonGroup2.add(rdHDHTT);
         rdHDHTT.setText("Đã thanh toán");
         rdHDHTT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,6 +302,7 @@ public class HoaDonJP extends javax.swing.JPanel {
             }
         });
 
+        buttonGroup2.add(rdHDCTT);
         rdHDCTT.setText("Chưa thanh toán");
         rdHDCTT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -414,6 +424,7 @@ public class HoaDonJP extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnTim;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;

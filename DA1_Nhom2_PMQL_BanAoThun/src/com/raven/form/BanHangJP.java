@@ -38,6 +38,7 @@ import java.io.FileNotFoundException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.Phrase;
+import com.n2.domainModel.KhachHang;
 import java.text.SimpleDateFormat;
 
 
@@ -114,7 +115,7 @@ public class BanHangJP extends javax.swing.JPanel {
         hd.setTrangThai(0);
         hd.setIDKH(1);
         banHangService.insertHD(hd);
-        loadHD();
+       
     }
 
     public void themSPVaoGioHang() throws SQLException {
@@ -265,6 +266,19 @@ public class BanHangJP extends javax.swing.JPanel {
         String maHD = String.valueOf(tblHoaDonCho.getValueAt(rowHD, 1).toString());
         int idHD = banHangService.getIdHDByMaHD(maHD);
         banHangService.huyHD(String.valueOf(idHD));
+        int soLuongDanTrongGioHang = 0;
+        int soluongTrongKho = 0;
+        for (HoaDonChiTietViewModel x : listHDCT) {
+            soLuongDanTrongGioHang = x.getSoLuong();
+            SanPhamChiTiet spct = new SanPhamChiTiet();
+            int idSPCT = banHangService.getIdSPCTByMaSPCT(x.getMaSP());
+            soluongTrongKho = banHangService.findSLbyIdSPCT(idSPCT);
+            int soluongtong =  soluongTrongKho + soLuongDanTrongGioHang;
+            spct.setID(idSPCT);
+            spct.setSoLuongTon(soluongtong);
+        banHangService.updateSPCT(spct);
+
+        }
         loadHD();
     }
 
@@ -334,6 +348,7 @@ public class BanHangJP extends javax.swing.JPanel {
         // Chuyển đổi chuỗi thành kiểu float
         float tongTienValue = Float.parseFloat(tongTien);
         float donGiaSauGiamValue = Float.parseFloat(donGiaSauGiam);
+        float tienKhachDua = Float.parseFloat(txTienKhachDua.getText());
         String maKH = null;
         int id = 1;
         if (txtKM.getText() == null || txtKM.getText().isEmpty()) {
@@ -374,13 +389,14 @@ String formattedDate = sdf.format(now);
 
         Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
         Font contentFont = new Font(Font.FontFamily.TIMES_ROMAN, 12);
-
+        String tenKH = lblTenKH.getText();
         // Add the invoice content to the PDF document
         document.add(new Paragraph("F5 Shirt", titleFont));
         document.add(new Paragraph("Hoa don thanh toan", titleFont));
         document.add(new Paragraph("---------------------------------------------------", contentFont));
+        document.add(new Paragraph("Ma hoa don:    " + lblMaHD.getText(), contentFont));
         document.add(new Paragraph("Ngay thanh toan    " + formattedDate, contentFont));
-        document.add(new Paragraph("Ten khach hang:    " + hd.getIDKH(), contentFont));
+        document.add(new Paragraph("Ten khach hang:    " + tenKH, contentFont));
         document.add(new Paragraph("---------------------------------------------------", contentFont));
         document.add(new Paragraph("", contentFont));
 
@@ -401,11 +417,11 @@ String formattedDate = sdf.format(now);
 
         document.add(table);
         document.add(new Paragraph("---------------------------------------------------", contentFont));
-        document.add(new Paragraph("Tong tien:              " + tongTienValue+ "   VND", contentFont));
+        document.add(new Paragraph("Tong tien:              " + formatCurrency(tongTienValue), contentFont));
 //        document.add(new Paragraph("khuyen mai:          " + mucGiam, contentFont));
-        document.add(new Paragraph("Thanh tien:            " + donGiaSauGiamValue + "   VND", contentFont));
+        document.add(new Paragraph("Thanh tien:            " + formatCurrency(donGiaSauGiamValue) , contentFont));
 
-            document.add(new Paragraph("Tien khach dua:     " + txTienKhachDua.getText() + "   VND" , contentFont));
+            document.add(new Paragraph("Tien khach dua:     " + formatCurrency(tienKhachDua)  , contentFont));
             document.add(new Paragraph("Tien thua:             " + lblTienThua.getText(), contentFont));
 
         document.add(new Paragraph("---------------------------------------------------", contentFont));
@@ -422,12 +438,16 @@ String formattedDate = sdf.format(now);
     }
     txtKM.setText(" ");
     txTienKhachDua.setText(" ");
+    txtSDT.setText(" ");
     lblTenKM.setText("?");
     lblMucGiam.setText("?");
     lblTongTien.setText("?");
     lblTienThua.setText("?");
     lblTongTienSau.setText("?");
     lblMaHD.setText("?");
+    lblTenKH.setText("Khách vãng lai");
+    
+    
 }
 
 
@@ -484,7 +504,7 @@ String formattedDate = sdf.format(now);
         lblMaHD = new javax.swing.JLabel();
         txTienKhachDua = new javax.swing.JTextField();
         lblTongTien = new javax.swing.JLabel();
-        txMaKH = new javax.swing.JTextField();
+        txtSDT = new javax.swing.JTextField();
         lblTienThua = new javax.swing.JLabel();
         lblTongTienSau = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -499,6 +519,8 @@ String formattedDate = sdf.format(now);
         lblMucGiam = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        lblTenKH = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -605,7 +627,7 @@ String formattedDate = sdf.format(now);
         jLabel5.setText("Mã HĐ");
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel6.setText("Mã KH");
+        jLabel6.setText("SĐT KH");
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel7.setText("Tổng tiền");
@@ -644,9 +666,9 @@ String formattedDate = sdf.format(now);
         lblTongTien.setForeground(new java.awt.Color(255, 0, 0));
         lblTongTien.setText("?");
 
-        txMaKH.addActionListener(new java.awt.event.ActionListener() {
+        txtSDT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txMaKHActionPerformed(evt);
+                txtSDTActionPerformed(evt);
             }
         });
 
@@ -713,6 +735,13 @@ String formattedDate = sdf.format(now);
         jLabel20.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel20.setText("Mức giảm");
 
+        jLabel14.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel14.setText("Tên KH");
+
+        lblTenKH.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lblTenKH.setForeground(new java.awt.Color(0, 0, 255));
+        lblTenKH.setText("Khách vãng lai");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -749,7 +778,8 @@ String formattedDate = sdf.format(now);
                             .addComponent(jLabel10)
                             .addComponent(jLabel13)
                             .addComponent(jLabel16)
-                            .addComponent(jLabel20))
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel14))
                         .addGap(33, 33, 33)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -759,12 +789,13 @@ String formattedDate = sdf.format(now);
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblTenKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblTenKM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblTienThua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txMaKH, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                                            .addComponent(txtSDT, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                                             .addComponent(txTienKhachDua, javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(lblMaHD, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(0, 0, Short.MAX_VALUE))
@@ -778,15 +809,19 @@ String formattedDate = sdf.format(now);
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(lblMaHD))
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(txMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(lblTenKH))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(lblTongTien))
-                .addGap(21, 21, 21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txTienKhachDua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -898,7 +933,7 @@ String formattedDate = sdf.format(now);
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel1)
                                             .addComponent(jLabel2))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 509, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 527, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -912,7 +947,7 @@ String formattedDate = sdf.format(now);
                                     .addComponent(btnUpdateSP)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(btnXoaSP))))
-                        .addGap(18, 18, 18))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(135, 135, 135)
                         .addComponent(btnTruoc)
@@ -988,9 +1023,12 @@ String formattedDate = sdf.format(now);
 
     }//GEN-LAST:event_txTienKhachDuaActionPerformed
 
-    private void txMaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txMaKHActionPerformed
+    private void txtSDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSDTActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txMaKHActionPerformed
+        String sdt = txtSDT.getText();
+        KhachHang kh = (KhachHang) banHangService.getTENKHBYSDT(sdt);
+        lblTenKH.setText(kh.getTenKH());
+    }//GEN-LAST:event_txtSDTActionPerformed
 
     private void btnHuyHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyHoaDonActionPerformed
         try {
@@ -1002,6 +1040,7 @@ String formattedDate = sdf.format(now);
                 return;
             }
             huyHoaDon();
+            loadSP();
         } catch (SQLException ex) {
             Logger.getLogger(BanHangJP.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1100,6 +1139,7 @@ String formattedDate = sdf.format(now);
                 JOptionPane.showMessageDialog(null, "Vui lòng nhập tiền khách đưa.");
             }
             thanhToan();
+            loadHDCT();
         } catch (SQLException ex) {
             Logger.getLogger(BanHangJP.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1137,6 +1177,7 @@ String formattedDate = sdf.format(now);
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -1157,6 +1198,7 @@ String formattedDate = sdf.format(now);
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblMaHD;
     private javax.swing.JLabel lblMucGiam;
+    private javax.swing.JLabel lblTenKH;
     private javax.swing.JLabel lblTenKM;
     private javax.swing.JLabel lblTienThua;
     private javax.swing.JLabel lblTongTien;
@@ -1165,9 +1207,9 @@ String formattedDate = sdf.format(now);
     private javax.swing.JTable tblGioHang;
     private javax.swing.JTable tblHoaDonCho;
     private javax.swing.JTable tblSanPham;
-    private javax.swing.JTextField txMaKH;
     private javax.swing.JTextField txTienKhachDua;
     private javax.swing.JTextField txtKM;
+    private javax.swing.JTextField txtSDT;
     // End of variables declaration//GEN-END:variables
 
 }
