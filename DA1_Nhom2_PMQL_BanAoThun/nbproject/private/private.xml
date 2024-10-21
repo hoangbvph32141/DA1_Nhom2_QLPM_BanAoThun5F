@@ -2,6 +2,7 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group>
             <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_CUOICUNG/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iRepository/HoaDonRepository.java</file>
             <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_CUOICUNG/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/main/Main.java</file>
@@ -10,5 +11,8 @@
             <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_CUOICUNG/DA1_Nhom2_PMQL_BanAoThun/src/com/raven/form/BanHangJP.java</file>
             <file>file:/C:/Users/vxkie/Desktop/DA1_NHOM2_CUOICUNG/DA1_Nhom2_PMQL_BanAoThun/src/com/n2/iService/HoaDonService.java</file>
         </group>
+=======
+        <group/>
+>>>>>>> 2e69e5b9e72a9077f1dc51aeef731e1a3596bc92
     </open-files>
 </project-private>

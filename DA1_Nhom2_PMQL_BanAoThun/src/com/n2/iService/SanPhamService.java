@@ -84,6 +84,19 @@ public class SanPhamService implements iSanPhamService {
         }
     }
 
+    public int xoaSP(int id) {
+        sql = "delete from SANPHAM where id =?";
+        try {
+            con = DBConnect.getConnection();
+            pr = con.prepareStatement(sql);
+            pr.setObject(1, id);
+            return pr.executeUpdate();
+
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
     // Sản Phẩm Chi Tiết
     public ArrayList<SanPhamCTViewModel> getAllSPCT() {
         sql = "SELECT IDMS,IDCL,IDTH,IDKC,IDSP,MASPCT,NGUOITAO,SOLUONGTON,MOTA,TRANGTHAISPCT,DONGIA FROM SANPHAMCHITIET";
@@ -159,6 +172,19 @@ public class SanPhamService implements iSanPhamService {
             pr.setObject(12, id);
             return pr.executeUpdate();
         } catch (Exception e) { // không sửa được
+            return 0;
+        }
+    }
+
+    public int xoaSPCT(int id) {
+        sql = "delete from SANPHAMCHITIET where id =?";
+        try {
+            con = DBConnect.getConnection();
+            pr = con.prepareStatement(sql);
+            pr.setObject(1, id);
+            return pr.executeUpdate();
+
+        } catch (Exception e) {
             return 0;
         }
     }
