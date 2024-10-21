@@ -154,7 +154,7 @@ GO
 -- INSERT INTO NHANVIEN
 INSERT INTO NHANVIEN (MANV,TENNV,GIOITINH,NGAYSINH,CCCD,DIACHI,SDT,EMAIL,MATKHAU,TRANGTHAINV,CHUCVU) VALUES --1 NV | 2 QL
 ('NV01',N'Vũ Xuân Kiên',1,'2003-12-16','001203030101',N'Hà Nội','0335613548','kienvxph27136@fpt.edu.vn','123',1,2),
-('NV02',N'Bùi Vũ Hoàng',0,'2004-06-14','001298768787',N'Hải Dương','0965416951','hoangbvph32141@fpt.edu.vn','123',1,1),
+('NV02',N'Bùi Vũ Hoàng',0,'2004-06-14','001298768787',N'Hải Dương','0965416951','hoangbvph32141@fpt.edu.vn','123',1,2),
 ('NV03',N'Ngọc Quốc Thiện',1,'2003-05-11','001202098789',N'Đông Anh','0937521482','thiennqph35476@fpt.edu.vn','123',1,2),
 ('NV04',N'Bùi Văn Hiếu',1,'2002-06-22','001204037486',N'Hà Nội','0965138987','hieubvph35580@fpt.edu.vn','456',0,2),
 ('NV05', N'Trần Thanh Tùng', 1, '1998-09-18', '001201234567', N'Hải Phòng', '0348765432', 'tungtt123@fpt.edu.vn', 'abc123', 0, 1),
@@ -169,9 +169,6 @@ INSERT INTO NHANVIEN (MANV,TENNV,GIOITINH,NGAYSINH,CCCD,DIACHI,SDT,EMAIL,MATKHAU
 ('NV14', N'Lê Thị Thu', 0, '2002-12-10', '001203245789', N'Tuyên Quang', '0954123678', 'thult@fpt.edu.vn', 'thu123', 0, 2),
 ('NV15', N'Nguyễn Văn Tú', 1, '1994-10-15', '001201112233', N'Hòa Bình', '0398765432', 'tungv@fpt.edu.vn', 'tu12345', 0, 1);
 GO
-
-
-
 
 -- INSERT INTO MAUSAC
 INSERT INTO MAUSAC (MAMS,TENMS,TRANGTHAIMS) VALUES
@@ -232,54 +229,31 @@ GO
 
 -- INSERT INTO KICHCO
 INSERT INTO KICHCO (MAKC,TENKC,TRANGTHAIKC) VALUES
-('KC01',N'M',1),
-('KC02',N'L',1),
-('KC03',N'XL',1),
-('KC04',N'XXL',1),
-('KC05',N'XXXL',0),
-('KC06', N'S', 1),     
-('KC07', N'XS', 1),    
-('KC08', N'XXS', 1),   
-('KC09', N'4XL', 0),   
-('KC10', N'5XL', 0);   
+('KC01',N'XS',1),
+('KC02',N'S',1),
+('KC03',N'M',1),
+('KC04',N'L',1),
+('KC05',N'XL',0),
+('KC06', N'XXL', 1),     
+('KC07', N'XXXL', 1);
 GO
 
 -- INSERT INTO SANPHAM
 INSERT INTO SANPHAM (MASP,TENSP,TRANGTHAISP) VALUES
-('SP01', N'Áo thun cổ tròn', 1),
-('SP02', N'Áo thun polo', 1),
-('SP03', N'Áo thun dài tay', 1),
-('SP04', N'Áo thun thể thao', 1),
-('SP05', N'Áo thun in logo hoặc thương hiệu', 1),
-('SP06', N'Áo thun cổ Lọ', 1),
-('SP07', N'Áo thun polo ccs', 1),
-('SP08', N'Áo thun tay lỡ', 1),
-('SP09', N'Áo thun in hình Taylor Swift', 1),
-('SP10', N'Áo thun thể dục', 1),
-('SP11', N'Áo thun oversize', 1),
-('SP12', N'Áo thun kẻ sọc', 1),
-('SP13', N'Áo thun len', 1),
-('SP14', N'Áo thun mùa nắng', 1),
-('SP15', N'Áo thun in slogan', 1);
+('SP01', N'Áo thun cổ tròn (Crew Neck T-shirt)', 1),
+('SP02', N'Áo thun cổ tim (V-neck T-shirt)', 1),
+('SP03', N'Áo thun polo (Polo T-shirt)', 1),
+('SP04', N'Áo thun tay dài (Long Sleeve T-shirt)', 1),
+('SP05', N'Áo thun oversize (Oversized T-shirt)', 1),
+('SP06', N'Áo thun unisex (Unisex T-shirt)', 1),
+('SP07', N'Áo thun graphic (Graphic T-shirt)', 1);
 GO
 
 -- INSERT INTO SANPHAMCHITIET
 INSERT INTO SANPHAMCHITIET (MASPCT,IDMS,IDCL,IDTH,IDKC,IDSP,NGUOITAO,SOLUONGTON,MOTA,TRANGTHAISPCT,DONGIA) VALUES
-('SPCT01', 1, 1, 1, 1, 1, N'Bùi Vũ Hoàng', 100, N'Chất liệu thoáng mát', 1, 800000),
-('SPCT02', 2, 2, 2, 2, 2, N'Bùi Vũ Hoàng', 200, N'Sang trọng, lịch lãm', 1, 700000),
-('SPCT03', 3, 3, 3, 3, 3, N'Bùi Vũ Hoàng', 300, N'Trẻ trung, năng động', 1, 700000),
-('SPCT04', 1, 1, 1, 1, 4, N'Bùi Vũ Hoàng', 150, N'Thể thao, thoải mái', 1, 750000),  -- Chi tiết cho áo thun thể thao
-('SPCT05', 1, 1, 1, 1, 5, N'Bùi Vũ Hoàng', 120, N'In logo thương hiệu, phong cách', 1, 650000),  -- Chi tiết cho áo thun in logo
-('SPCT06', 1, 1, 1, 1, 6, N'Bùi Vũ Hoàng', 90, N'Kiểu dáng oversize, phong cách hiện đại', 1, 800000),  -- Chi tiết cho áo thun oversize
-('SPCT07', 1, 1, 1, 1, 7, N'Bùi Vũ Hoàng', 80, N'Tay lỡ, thoáng mát', 1, 700000),  -- Chi tiết cho áo thun tay lỡ
-('SPCT08', 1, 1, 1, 1, 8, N'Bùi Vũ Hoàng', 70, N'In hình thể thao, trẻ trung', 1, 600000),  -- Chi tiết cho áo thun in hình
-('SPCT09', 1, 1, 1, 1, 9, N'Bùi Vũ Hoàng', 60, N'Chất liệu thấm hút mồ hôi, năng động', 1, 750000),  -- Chi tiết cho áo thun thể thao nam
-('SPCT10', 1, 1, 1, 1, 10, N'Bùi Vũ Hoàng', 50, N'Mùa hè, thoáng mát', 1, 680000),  -- Chi tiết cho áo thun mùa hè
-('SPCT11', 1, 1, 1, 1, 11, N'Bùi Vũ Hoàng', 40, N'Chất liệu len, giữ ấm', 1, 900000),  -- Chi tiết cho áo thun len
-('SPCT12', 1, 1, 1, 1, 12, N'Bùi Vũ Hoàng', 30, N'Kẻ sọc, phong cách trẻ trung', 1, 700000),  -- Chi tiết cho áo thun kẻ sọc
-('SPCT13', 1, 1, 1, 1, 13, N'Bùi Vũ Hoàng', 20, N'In slogan, cá tính', 1, 650000),  -- Chi tiết cho áo thun in slogan
-('SPCT14', 1, 1, 1, 1, 14, N'Bùi Vũ Hoàng', 15, N'Chất liệu bền, dễ bảo quản', 1, 720000),  -- Chi tiết cho áo thun cổ tròn
-('SPCT15', 1, 1, 1, 1, 15, N'Bùi Vũ Hoàng', 10, N'Phong cách cổ điển, dễ phối đồ', 1, 700000);  -- Chi tiết cho áo thun polo
+('SPCT01', 1, 1, 1, 1, 1, N'Bùi Vũ Hoàng', 500, N'Chất liệu thoáng mát', 1, 800000),
+('SPCT02', 2, 2, 2, 2, 2, N'Bùi Vũ Hoàng', 400, N'Sang trọng, lịch lãm', 1, 700000),
+('SPCT03', 3, 3, 3, 3, 3, N'Bùi Vũ Hoàng', 700, N'Trẻ trung, năng động', 1, 700000)
 GO
 
 -- INSERT INTO KHACHHANG
