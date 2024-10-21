@@ -251,9 +251,21 @@ GO
 
 -- INSERT INTO SANPHAMCHITIET
 INSERT INTO SANPHAMCHITIET (MASPCT,IDMS,IDCL,IDTH,IDKC,IDSP,NGUOITAO,SOLUONGTON,MOTA,TRANGTHAISPCT,DONGIA) VALUES
-('SPCT01', 1, 1, 1, 1, 1, N'Bùi Vũ Hoàng', 500, N'Chất liệu thoáng mát', 1, 800000),
-('SPCT02', 2, 2, 2, 2, 2, N'Bùi Vũ Hoàng', 400, N'Sang trọng, lịch lãm', 1, 700000),
-('SPCT03', 3, 3, 3, 3, 3, N'Bùi Vũ Hoàng', 700, N'Trẻ trung, năng động', 1, 700000)
+('SPCT01', 1, 1, 1, 1, 1, N'Bùi Vũ Hoàng', 500, N'Đơn giản, dễ mặc, phù hợp mọi lứa tuổi.', 1, 800000),
+('SPCT02', 1, 1, 1, 1, 2, N'Bùi Vũ Hoàng', 400, N'Thời trang, thanh thoát, tạo cảm giác thoáng mát.', 1, 600000),
+('SPCT03', 1, 1, 1, 1, 3, N'Bùi Vũ Hoàng', 700, N'Lịch sự, thoải mái, thích hợp cho dịp bán trang trọng.', 1, 900000),
+('SPCT04', 1, 1, 1, 1, 4, N'Bùi Vũ Hoàng', 800, N'Ấm áp, phong cách, phù hợp thời tiết se lạnh.', 1, 1500000),
+('SPCT05', 1, 1, 1, 1, 5, N'Bùi Vũ Hoàng', 300, N'Phóng khoáng, thoải mái, phong cách trẻ trung.', 1, 700000),
+('SPCT06', 1, 1, 1, 1, 6, N'Bùi Vũ Hoàng', 200, N'Đơn giản, đa năng, phù hợp mọi giới tính.', 1, 700000),
+('SPCT07', 1, 1, 1, 1, 7, N'Bùi Vũ Hoàng', 100, N'Cá tính, nổi bật, thể hiện phong cách riêng.', 1, 700000),
+
+('SPCT08', 2, 2, 2, 2, 1, N'Bùi Vũ Hoàng', 600, N'Đơn giản, dễ mặc, phù hợp mọi lứa tuổi.', 1, 800000),
+('SPCT09', 2, 2, 2, 2, 2, N'Bùi Vũ Hoàng', 300, N'Thời trang, thanh thoát, tạo cảm giác thoáng mát.', 1, 600000),
+('SPCT10', 2, 2, 2, 2, 3, N'Bùi Vũ Hoàng', 500, N'Lịch sự, thoải mái, thích hợp cho dịp bán trang trọng.', 1, 900000),
+('SPCT11', 2, 2, 2, 2, 4, N'Bùi Vũ Hoàng', 700, N'Ấm áp, phong cách, phù hợp thời tiết se lạnh.', 1, 1500000),
+('SPCT12', 2, 2, 2, 2, 5, N'Bùi Vũ Hoàng', 200, N'Phóng khoáng, thoải mái, phong cách trẻ trung.', 1, 700000),
+('SPCT13', 2, 2, 2, 2, 6, N'Bùi Vũ Hoàng', 700, N'Đơn giản, đa năng, phù hợp mọi giới tính.', 1, 700000),
+('SPCT14', 2, 2, 2, 2, 7, N'Bùi Vũ Hoàng', 800, N'Cá tính, nổi bật, thể hiện phong cách riêng.', 1, 700000);
 GO
 
 -- INSERT INTO KHACHHANG
